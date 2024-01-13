@@ -38,13 +38,16 @@ type
 
 implementation
 
+uses
+  View.Principal;
+
 {$R *.fmx}
 
 procedure TViewTip.AnimationFinish(Sender: TObject);
 begin
   if FCloseAnimation then
   begin
-
+    ViewPrincipal.FViewTipVisible:= False;
     Self.Free;
   end
   else

@@ -22,12 +22,9 @@ type
     lytContent: TLayout;
     rtgNewGame: TRectangle;
     lblNo: TLabel;
-    swtMusic: TSwitch;
-    Label2: TLabel;
     procedure AnimationFinish(Sender: TObject);
     procedure imgCloseClick(Sender: TObject);
     procedure rtgNewGameClick(Sender: TObject);
-    procedure swtMusicClick(Sender: TObject);
   private
     { Private declarations }
     FCloseAnimation: Boolean;
@@ -79,20 +76,6 @@ begin
   ViewPrincipal.FTempoCronometro:= 0;
   ViewPrincipal.Timer.Enabled:= True;
   CloseAll;
-end;
-
-procedure TViewMenuInGame.swtMusicClick(Sender: TObject);
-begin
-  if swtMusic.IsChecked then
-  begin
-    ViewMenuPrincipal.FImageSongID:= 1;
-    ViewMenuPrincipal.ConfigSongState;
-  end
-  else
-  begin
-    ViewMenuPrincipal.FImageSongID:= 0;
-    ViewMenuPrincipal.ConfigSongState;
-  end;
 end;
 
 procedure TViewMenuInGame.CloseAll;

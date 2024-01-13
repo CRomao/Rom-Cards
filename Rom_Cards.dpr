@@ -14,7 +14,6 @@ uses
   View.Congratulations in 'src\view\View.Congratulations.pas' {ViewCongratulations: TFrame},
   View.Tip in 'src\view\View.Tip.pas' {ViewTip: TFrame},
   Provider.Loading in 'src\provider\Provider.Loading.pas',
-  View.MenuInGame in 'src\view\View.MenuInGame.pas' {ViewMenuInGame: TFrame},
   Provider.Functions in 'src\provider\Provider.Functions.pas',
   View.HowToPlay in 'src\view\View.HowToPlay.pas' {ViewHowToPlay: TFrame},
   View.Ranking in 'src\view\View.Ranking.pas' {ViewRanking: TFrame},

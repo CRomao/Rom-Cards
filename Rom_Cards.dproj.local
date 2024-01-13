@@ -14,8 +14,8 @@
     <Transaction>2023/12/23 12:49:51.000.386,C:\Users\Romao\Documents\Embarcadero\Studio\Projects\Project3.dproj=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Project3.dproj</Transaction>
     <Transaction>2023/12/23 12:50:02.000.432,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Project3.dproj=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\DragAndDrop.dproj</Transaction>
     <Transaction>2023/12/23 16:32:00.000.978,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
-    <Transaction>2023/12/23 16:39:55.000.294,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\frame\Frame.Carta.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
     <Transaction>2023/12/23 16:39:55.000.294,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\frame\Frame.Carta.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.fmx</Transaction>
+    <Transaction>2023/12/23 16:39:55.000.294,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\frame\Frame.Carta.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
     <Transaction>2023/12/24 10:04:16.000.698,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
     <Transaction>2023/12/24 10:04:48.000.743,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\model\Model.Carta.pas</Transaction>
     <Transaction>2023/12/24 10:10:56.000.209,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\model\Model.Carta.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\model\Model.Card.pas</Transaction>
@@ -27,14 +27,14 @@
     <Transaction>2023/12/24 11:08:09.000.093,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
     <Transaction>2023/12/24 11:08:20.000.339,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\model\Model.Cards.pas</Transaction>
     <Transaction>2023/12/24 11:21:26.000.650,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
-    <Transaction>2023/12/24 11:24:00.000.592,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Teste.pas</Transaction>
     <Transaction>2023/12/24 11:24:00.000.592,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Teste.fmx</Transaction>
+    <Transaction>2023/12/24 11:24:00.000.592,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Teste.pas</Transaction>
     <Transaction>2023/12/24 13:59:05.000.941,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
     <Transaction>2023/12/24 14:05:24.000.240,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\model\Model.Stacks.pas</Transaction>
     <Transaction>2023/12/24 18:38:14.000.279,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\PacienciaLAN.dproj=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\DragAndDrop.dproj</Transaction>
     <Transaction>2023/12/24 18:42:39.000.635,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\model\Model.CardsArray.pas=</Transaction>
-    <Transaction>2023/12/24 19:04:34.000.506,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\View.Principal.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Principal.fmx</Transaction>
     <Transaction>2023/12/24 19:04:34.000.506,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\View.Principal.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Principal.pas</Transaction>
+    <Transaction>2023/12/24 19:04:34.000.506,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\View.Principal.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Principal.fmx</Transaction>
     <Transaction>2023/12/24 22:47:41.000.285,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\controller\Controller.Stacks.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\model\Model.Stacks.pas</Transaction>
     <Transaction>2023/12/24 22:48:07.000.693,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\controller\Controller.Cards.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\model\Model.Cards.pas</Transaction>
     <Transaction>2023/12/24 22:48:15.000.667,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\frame\Frame.Carta.pas=</Transaction>
@@ -45,8 +45,8 @@
     <Transaction>2023/12/27 14:24:12.000.888,D:\projetos\DragAndDrop\src\model\Model.Movement.pas=</Transaction>
     <Transaction>2023/12/27 14:24:16.000.691,D:\projetos\DragAndDrop\src\controller\Controller.Movement.pas=</Transaction>
     <Transaction>2023/12/28 07:54:58.000.707,=D:\projetos\DragAndDrop\Unit1.pas</Transaction>
-    <Transaction>2023/12/28 07:55:10.000.585,D:\projetos\DragAndDrop\src\view\View.Teste.fmx=D:\projetos\DragAndDrop\Unit1.fmx</Transaction>
     <Transaction>2023/12/28 07:55:10.000.585,D:\projetos\DragAndDrop\src\view\View.Teste.pas=D:\projetos\DragAndDrop\Unit1.pas</Transaction>
+    <Transaction>2023/12/28 07:55:10.000.585,D:\projetos\DragAndDrop\src\view\View.Teste.fmx=D:\projetos\DragAndDrop\Unit1.fmx</Transaction>
     <Transaction>2023/12/31 21:15:17.000.730,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit2.pas</Transaction>
     <Transaction>2023/12/31 21:15:33.000.280,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit2.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.MenuPrincipal.fmx</Transaction>
     <Transaction>2023/12/31 21:15:33.000.280,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit2.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.MenuPrincipal.pas</Transaction>
@@ -61,11 +61,11 @@
     <Transaction>2024/01/01 16:24:07.000.646,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.AboutGame.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
     <Transaction>2024/01/01 16:24:07.000.646,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.AboutGame.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.fmx</Transaction>
     <Transaction>2024/01/03 18:58:29.000.489,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
-    <Transaction>2024/01/03 18:58:50.000.246,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Congratulations.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.fmx</Transaction>
     <Transaction>2024/01/03 18:58:50.000.246,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Congratulations.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
+    <Transaction>2024/01/03 18:58:50.000.246,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Congratulations.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.fmx</Transaction>
     <Transaction>2024/01/03 20:27:47.000.451,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
-    <Transaction>2024/01/03 20:28:01.000.424,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Tip.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
     <Transaction>2024/01/03 20:28:01.000.424,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Tip.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.fmx</Transaction>
+    <Transaction>2024/01/03 20:28:01.000.424,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Tip.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
     <Transaction>2024/01/03 21:16:00.000.035,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\provider\Provider.Loading.pas</Transaction>
     <Transaction>2024/01/03 22:24:16.000.671,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.Teste.pas=</Transaction>
     <Transaction>2024/01/05 19:05:55.000.641,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
@@ -84,8 +84,9 @@
     <Transaction>2024/01/09 22:31:11.000.887,D:\projetos-delphi\romao\Lyrics\Unit1.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\provider\Provider.Connection.pas</Transaction>
     <Transaction>2024/01/12 10:55:26.000.008,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\provider\Provider.Connection.pas=</Transaction>
     <Transaction>2024/01/12 21:28:24.000.870,=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas</Transaction>
-    <Transaction>2024/01/12 21:28:47.000.975,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.PauseGame.fmx</Transaction>
     <Transaction>2024/01/12 21:28:47.000.975,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.pas=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.PauseGame.pas</Transaction>
-    <Transaction>2024/01/13 15:37:23.811,D:\projetos-delphi\romao\Rom Cards\Rom_Cards.dproj=D:\projetos-delphi\romao\Rom Cards\PacienciaLAN.dproj</Transaction>
+    <Transaction>2024/01/12 21:28:47.000.975,D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\Unit1.fmx=D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\src\view\View.PauseGame.fmx</Transaction>
+    <Transaction>2024/01/13 15:37:23.000.811,D:\projetos-delphi\romao\Rom Cards\Rom_Cards.dproj=D:\projetos-delphi\romao\Rom Cards\PacienciaLAN.dproj</Transaction>
+    <Transaction>2024/01/13 18:35:34.772,D:\projetos-delphi\romao\Rom Cards\src\view\View.MenuInGame.pas=</Transaction>
   </Transactions>
 </BorlandProject>

@@ -20,14 +20,14 @@ object ViewMenuInGame: TViewMenuInGame
     object lytOptions: TLayout
       Align = Center
       Size.Width = 220.000000000000000000
-      Size.Height = 146.000000000000000000
+      Size.Height = 81.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       object rtgOptions: TRectangle
         Align = Client
         Fill.Color = claWhite
         Size.Width = 220.000000000000000000
-        Size.Height = 146.000000000000000000
+        Size.Height = 81.000000000000000000
         Size.PlatformDefault = False
         Stroke.Kind = None
         XRadius = 5.000000000000000000
@@ -99,7 +99,7 @@ object ViewMenuInGame: TViewMenuInGame
         object lytContent: TLayout
           Align = Client
           Size.Width = 220.000000000000000000
-          Size.Height = 121.000000000000000000
+          Size.Height = 56.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 1
           object rtgNewGame: TRectangle
@@ -129,25 +129,6 @@ object ViewMenuInGame: TViewMenuInGame
               TabOrder = 0
             end
           end
-          object swtMusic: TSwitch
-            Cursor = crHandPoint
-            IsChecked = False
-            Position.X = 8.000000000000000000
-            Position.Y = 81.000000000000000000
-            TabOrder = 1
-            OnClick = swtMusicClick
-          end
-          object Label2: TLabel
-            StyledSettings = [Family, Size, FontColor]
-            Position.X = 8.000000000000000000
-            Position.Y = 62.000000000000000000
-            Size.Width = 65.000000000000000000
-            Size.Height = 15.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.StyleExt = {00070000000000000004000000}
-            Text = 'M'#250'sica:'
-            TabOrder = 0
-          end
         end
       end
       object Animation: TFloatAnimation
@@ -156,7 +137,7 @@ object ViewMenuInGame: TViewMenuInGame
         OnFinish = AnimationFinish
         PropertyName = 'Height'
         StartValue = 0.000000000000000000
-        StopValue = 146.000000000000000000
+        StopValue = 81.000000000000000000
       end
     end
   end

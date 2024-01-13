@@ -227,11 +227,6 @@
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="src\provider\Provider.Loading.pas"/>
-        <DCCReference Include="src\view\View.MenuInGame.pas">
-            <Form>ViewMenuInGame</Form>
-            <FormType>fmx</FormType>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
         <DCCReference Include="src\provider\Provider.Functions.pas"/>
         <DCCReference Include="src\view\View.HowToPlay.pas">
             <Form>ViewHowToPlay</Form>

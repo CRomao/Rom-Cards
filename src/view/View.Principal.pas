@@ -38,31 +38,36 @@ type
     Rectangle11: TRectangle;
     imgClose: TImage;
     imgTip: TImage;
-    imgMenu: TImage;
     imgRefreshStock: TImage;
     Timer: TTimer;
     lblTimerGame: TLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure imgRefreshStockClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgUndoClick(Sender: TObject);
     procedure imgCloseClick(Sender: TObject);
     procedure imgMinimizeClick(Sender: TObject);
-    procedure imgTipClick(Sender: TObject);
-    procedure imgMenuClick(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     procedure rtgTopBorderMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Single);
     procedure FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
+    procedure imgTipClick(Sender: TObject);
   private
     procedure ReporEstoque(AOriginStackID, ADestinyStackID: integer; SpecialMovement: Boolean);
     procedure OnFinishAnimation(Sender: TObject);
+    procedure GetTipCard;
+    procedure UndoMovement;
+    procedure ExitGame;
     { Private declarations }
   public
     { Public declarations }
     FTempoCronometro, FHoras, FMinutos, FSegundos: integer;
     FTempoCronometroText: string;
+    FPausedGame, FViewTipVisible, FUndoInProcess: Boolean;
   end;
 
 const
@@ -75,7 +80,7 @@ var
 implementation
 
 uses
-  View.ExitGame, View.Tip, Provider.Loading, View.MenuInGame, Provider.Functions, View.PauseGame;
+  View.ExitGame, View.Tip, Provider.Loading, Provider.Functions, View.PauseGame;
 
 {$R *.fmx}
 
@@ -114,8 +119,12 @@ procedure TViewPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
 var
   LViewPauseGame: TViewPauseGame;
 begin
-  if (UpperCase(KeyChar) = 'P' ) then
+  if (Key = VK_ESCAPE) then
+    ExitGame;
+
+  if (KeyChar = ' ') and not FPausedGame then
   begin
+    FPausedGame:= True;
     LViewPauseGame:= TViewPauseGame.Create(ViewPrincipal);
     LViewPauseGame.Parent:= ViewPrincipal;
     LViewPauseGame.BringToFront;
@@ -123,9 +132,23 @@ begin
     Timer.Enabled:= False;
     LViewPauseGame.Animation.Enabled:= True;
   end;
+
+  if (UpperCase(KeyChar) = 'F' ) and not FViewTipVisible then
+    GetTipCard;
+
+  if (UpperCase(KeyChar) = 'D' ) and not FUndoInProcess then
+    UndoMovement;
+
+  if (UpperCase(KeyChar) = 'R' ) then
+    ReporEstoque(8, 7, False);
 end;
 
 procedure TViewPrincipal.imgCloseClick(Sender: TObject);
+begin
+  ExitGame;
+end;
+
+procedure TViewPrincipal.ExitGame;
 var
   ViewExitGame: TViewExitGame;
 begin
@@ -136,21 +159,6 @@ begin
   ViewExitGame.rtgNo.Visible:= False;
   ViewExitGame.rtgYes.Visible:= False;
   ViewExitGame.Animation.Enabled:= True;
-end;
-
-procedure TViewPrincipal.imgMenuClick(Sender: TObject);
-var
-  LViewMenuInGame: TViewMenuInGame;
-begin
-  LViewMenuInGame:= TViewMenuInGame.Create(ViewPrincipal);
-  LViewMenuInGame.Parent:= ViewPrincipal;
-  LViewMenuInGame.BringToFront;
-  LViewMenuInGame.lytContent.Visible:= False;
-
-  if (ViewMenuPrincipal.FImageSongID = 0) then
-    LViewMenuInGame.swtMusic.IsChecked:= True;
-
-  LViewMenuInGame.Animation.Enabled:= True;
 end;
 
 procedure TViewPrincipal.imgMinimizeClick(Sender: TObject);
@@ -164,6 +172,11 @@ begin
 end;
 
 procedure TViewPrincipal.imgTipClick(Sender: TObject);
+begin
+  GetTipCard;
+end;
+
+procedure TViewPrincipal.GetTipCard;
 var
   ViewTip: TViewTip;
   LTip: TList<string>;
@@ -177,6 +190,7 @@ begin
   end
   else
   begin
+    FViewTipVisible:= True;
     ViewTip:= TViewTip.Create(ViewPrincipal);
     ViewTip.Parent:= ViewPrincipal;
     ViewTip.BringToFront;
@@ -188,6 +202,11 @@ begin
 end;
 
 procedure TViewPrincipal.imgUndoClick(Sender: TObject);
+begin
+  UndoMovement;
+end;
+
+procedure TViewPrincipal.UndoMovement;
 var
   LLastCardMoved, aux: TCard;
   LLastMovement: TMovement;
@@ -196,7 +215,7 @@ begin
   if (TControllerMovement.GeListMovement.Count > 1) then
   begin
     imgUndo.Enabled:= False;
-
+    FUndoInProcess:= True;
     if TControllerMovement.GetLastMovement.SPECIAL_MOVEMENT then
     begin
       try
@@ -205,6 +224,7 @@ begin
         TControllerMovement.GeListMovement.Delete(Pred(TControllerMovement.GeListMovement.Count));
       finally
         imgUndo.Enabled:= True;
+        FUndoInProcess:= False;
       end;
     end
     else
@@ -354,6 +374,7 @@ begin
       end;
     end;
   end;
+
 end;
 
 procedure TViewPrincipal.OnFinishAnimation(Sender: TObject);
@@ -394,6 +415,7 @@ begin
     TControllerMovement.SetLastCardMoved(TControllerMovement.GetLastMovement.CARD);
   finally
     imgUndo.Enabled:= True;
+    FUndoInProcess:= False;
   end;
 end;
 

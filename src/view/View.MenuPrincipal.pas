@@ -32,7 +32,6 @@ type
     Rectangle11: TRectangle;
     imgClose: TImage;
     imgMinimize: TImage;
-    imgSound: TImage;
     imgInformation: TImage;
     rtgAnimationNewGame: TRectangle;
     AnimationNewGame: TFloatAnimation;
@@ -59,7 +58,6 @@ type
     imgAssemblyHeart: TImage;
     Button1: TButton;
     mmo: TMemo;
-    MediaPlayer: TMediaPlayer;
     procedure imgCloseClick(Sender: TObject);
     procedure imgMinimizeClick(Sender: TObject);
     procedure rtgNewGameClick(Sender: TObject);
@@ -67,18 +65,14 @@ type
     procedure imgInformationClick(Sender: TObject);
     procedure AnimationNewGameFinish(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure imgSoundClick(Sender: TObject);
     procedure rtgHowToPlayClick(Sender: TObject);
     procedure rtgTopBorderMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Single);
     procedure rtgRankingClick(Sender: TObject);
   private
     { Private declarations }
-    procedure PrepareSongGame;
   public
     { Public declarations }
-    FImageSongID: Integer;
-    procedure ConfigSongState;
   end;
 
 const
@@ -116,27 +110,6 @@ end;
 procedure TViewMenuPrincipal.imgMinimizeClick(Sender: TObject);
 begin
   Self.WindowState:= TWindowState.wsMinimized;
-end;
-
-procedure TViewMenuPrincipal.imgSoundClick(Sender: TObject);
-begin
-  //ConfigSongState;
-end;
-
-procedure TViewMenuPrincipal.ConfigSongState;
-begin
-  if (FImageSongID = 0) then
-  begin
-    imgSound.Bitmap.LoadFromFile(ExtractFilePath(ParamStr(0))+'/img/cards/menu/music-off.png');
-    FImageSongID:= 1;
-    MediaPlayer.Stop;
-  end
-  else
-  begin
-    imgSound.Bitmap.LoadFromFile(ExtractFilePath(ParamStr(0))+'/img/cards/menu/music-on.png');
-    FImageSongID:= 0;
-    MediaPlayer.Play;
-  end;
 end;
 
 procedure TViewMenuPrincipal.rtgExitClick(Sender: TObject);
@@ -204,16 +177,7 @@ end;
 
 procedure TViewMenuPrincipal.FormCreate(Sender: TObject);
 begin
-  FImageSongID:= 0;
   rtgAnimationNewGame.Position.Y:= rtgAnimationNewGame.Position.Y + 50;
-  //PrepareSongGame;
-end;
-
-procedure TViewMenuPrincipal.PrepareSongGame;
-begin
-  MediaPlayer.Stop;
-  MediaPlayer.FileName:= ExtractFilePath(ParamStr(0))+'/song-game/song.mp3';
-  MediaPlayer.Play;
 end;
 
 end.
