@@ -40,6 +40,7 @@ type
     imgTip: TImage;
     imgMenu: TImage;
     imgRefreshStock: TImage;
+    Timer: TTimer;
     lblTimerGame: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure imgRefreshStockClick(Sender: TObject);
@@ -57,14 +58,11 @@ type
   private
     procedure ReporEstoque(AOriginStackID, ADestinyStackID: integer; SpecialMovement: Boolean);
     procedure OnFinishAnimation(Sender: TObject);
-    procedure TimeGame;
     { Private declarations }
   public
     { Public declarations }
     FTempoCronometro, FHoras, FMinutos, FSegundos: integer;
     FTempoCronometroText: string;
-    FThreadTime: TThread;
-    FPausedGame, FEndGame: Boolean;
   end;
 
 const
@@ -84,8 +82,6 @@ uses
 procedure TViewPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);   
 begin
   CloseGame;
-  FEndGame:= True;
-  FThreadTime.Free;
   ViewMenuPrincipal.AnimationNewGame.Start;
 end;
 
@@ -109,8 +105,7 @@ begin
 
   TLoading.Hide;
 
-  FPausedGame:= False;
-  TimeGame;
+  Timer.Enabled:= True;
   FTempoCronometro:= 0;
 end;
 
@@ -125,7 +120,7 @@ begin
     LViewPauseGame.Parent:= ViewPrincipal;
     LViewPauseGame.BringToFront;
     LViewPauseGame.lytContent.Visible:= False;
-    FPausedGame:= True;
+    Timer.Enabled:= False;
     LViewPauseGame.Animation.Enabled:= True;
   end;
 end;
@@ -459,50 +454,12 @@ end;
 
 procedure TViewPrincipal.TimerTimer(Sender: TObject);
 begin
- { if not Assigned(FThreadTime) then
-  begin
-    FThreadTime:= TThread.CreateAnonymousThread(procedure
-    begin
-      Inc(FTempoCronometro);
-      FHoras := FTempoCronometro div 3600;
-      FMinutos := (FTempoCronometro div 60) mod 60;
-      FSegundos := FTempoCronometro mod 60;
-      FTempoCronometroText:= Format('%.2d:%.2d:%.2d', [FHoras, FMinutos, FSegundos]);
-    end);
-  end;
-
-
-
-  lblTimerGame.Text:= 'Tempo: ' + FTempoCronometroText;  }
-end;
-
-procedure TViewPrincipal.TimeGame;
-begin
-  if not Assigned(FThreadTime) then
-  begin
-    FThreadTime:= TThread.CreateAnonymousThread(procedure
-    begin
-      while not FEndGame do
-      begin
-        if not FPausedGame then
-        begin
-          Sleep(1000);
-          Inc(FTempoCronometro);
-           FHoras := FTempoCronometro div 3600;
-            FMinutos := (FTempoCronometro div 60) mod 60;
-            FSegundos := FTempoCronometro mod 60;
-            FTempoCronometroText:= Format('%.2d:%.2d:%.2d', [FHoras, FMinutos, FSegundos]);
-            lblTimerGame.Text:= 'Tempo: ' + FTempoCronometroText;
-         { TThread.Queue(nil, procedure
-          begin
-
-          end);  }
-        end;
-      end;
-    end);
-
-    FThreadTime.Start;
-  end;
+  Inc(FTempoCronometro);
+  FHoras := FTempoCronometro div 3600;
+  FMinutos := (FTempoCronometro div 60) mod 60;
+  FSegundos := FTempoCronometro mod 60;
+  FTempoCronometroText:= Format('%.2d:%.2d:%.2d', [FHoras, FMinutos, FSegundos]);
+  lblTimerGame.Text:= 'Tempo: ' + FTempoCronometroText;
 end;
 
 end.

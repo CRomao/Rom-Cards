@@ -199,6 +199,7 @@ begin
     AnimationNewGame.Tag:= 0;
     rtgAnimationNewGame.Position.Y:= rtgAnimationNewGame.Position.Y + 20;
   end;
+
 end;
 
 procedure TViewMenuPrincipal.FormCreate(Sender: TObject);

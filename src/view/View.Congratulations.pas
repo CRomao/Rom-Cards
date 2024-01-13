@@ -65,8 +65,7 @@ begin
   end
   else
   begin
-    ViewPrincipal.FPausedGame:= True;
-    ViewPrincipal.FEndGame:= True;
+    ViewPrincipal.Timer.Enabled:= False;
     lblTitle.Visible:= True;
     rtgNo.Visible:= True;
     rtgYes.Visible:= True;

@@ -77,8 +77,7 @@ begin
   SplitCardsToStack(ViewPrincipal.imgAssemblyClub, 11);
   SplitCardsToStack(ViewPrincipal.imgAssemblySpade, 12);
   ViewPrincipal.FTempoCronometro:= 0;
-  ViewPrincipal.FPausedGame:= False;
-  ViewPrincipal.FEndGame:= True;
+  ViewPrincipal.Timer.Enabled:= True;
   CloseAll;
 end;
 
@@ -120,7 +119,7 @@ begin
   ViewPrincipal.imgAssemblyDiamond.DeleteChildren;
   ViewPrincipal.imgAssemblyClub.DeleteChildren;
   ViewPrincipal.imgAssemblySpade.DeleteChildren;
-  ViewPrincipal.FPausedGame:= True;
+  ViewPrincipal.Timer.Enabled:= False;
 end;
 
 end.

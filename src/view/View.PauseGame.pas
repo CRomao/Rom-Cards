@@ -42,7 +42,7 @@ procedure TViewPauseGame.AnimationFinish(Sender: TObject);
 begin
   if FCloseAnimation then
   begin
-    ViewPrincipal.FPausedGame:= False;
+    ViewPrincipal.Timer.Enabled:= True;
     Self.Free;
   end
   else

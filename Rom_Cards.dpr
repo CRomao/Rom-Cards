@@ -1,4 +1,4 @@
-program PacienciaLAN;
+program Rom_Cards;
 
 uses
   System.StartUpCopy,
