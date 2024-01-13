@@ -1,0 +1,22 @@
+object ViewModalEffect: TViewModalEffect
+  Align = Contents
+  Size.Width = 343.000000000000000000
+  Size.Height = 190.000000000000000000
+  Size.PlatformDefault = False
+  object lytEffect: TLayout
+    Align = Contents
+    Size.Width = 343.000000000000000000
+    Size.Height = 190.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object rtgEffect: TRectangle
+      Align = Contents
+      Fill.Color = claBlack
+      Opacity = 0.699999988079071000
+      Size.Width = 343.000000000000000000
+      Size.Height = 190.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+    end
+  end
+end

@@ -1,0 +1,102 @@
+object ViewExitGame: TViewExitGame
+  Align = Contents
+  Size.Width = 278.000000000000000000
+  Size.Height = 142.000000000000000000
+  Size.PlatformDefault = False
+  object lytContainer: TLayout
+    Align = Contents
+    Size.Width = 278.000000000000000000
+    Size.Height = 142.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Rectangle1: TRectangle
+      Align = Contents
+      Fill.Color = claBlack
+      Opacity = 0.699999988079071000
+      Size.Width = 278.000000000000000000
+      Size.Height = 142.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lytOptions: TLayout
+      Align = Center
+      Size.Width = 255.000000000000000000
+      Size.Height = 97.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object rtgOptions: TRectangle
+        Align = Client
+        Fill.Color = claWhite
+        Size.Width = 255.000000000000000000
+        Size.Height = 97.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object lblTitle: TLabel
+          Align = Top
+          StyledSettings = [Family, FontColor]
+          Size.Width = 255.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = 'Deseja realmente sair do jogo?'
+          TabOrder = 0
+        end
+        object rtgNo: TRectangle
+          Cursor = crHandPoint
+          Position.X = 8.000000000000000000
+          Position.Y = 47.000000000000000000
+          Size.Width = 97.000000000000000000
+          Size.Height = 34.000000000000000000
+          Size.PlatformDefault = False
+          XRadius = 10.000000000000000000
+          YRadius = 10.000000000000000000
+          OnClick = rtgNoClick
+          object lblNo: TLabel
+            Align = Contents
+            StyledSettings = [Family, Size, FontColor]
+            Size.Width = 97.000000000000000000
+            Size.Height = 34.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.HorzAlign = Center
+            Text = 'N'#227'o'
+            TabOrder = 0
+          end
+        end
+        object rtgYes: TRectangle
+          Cursor = crHandPoint
+          Position.X = 147.000000000000000000
+          Position.Y = 47.000000000000000000
+          Size.Width = 97.000000000000000000
+          Size.Height = 34.000000000000000000
+          Size.PlatformDefault = False
+          XRadius = 10.000000000000000000
+          YRadius = 10.000000000000000000
+          OnClick = rtgYesClick
+          object lblYes: TLabel
+            Align = Contents
+            StyledSettings = [Family, Size]
+            Size.Width = 97.000000000000000000
+            Size.Height = 34.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.HorzAlign = Center
+            Text = 'Sim'
+            TabOrder = 0
+          end
+        end
+      end
+      object Animation: TFloatAnimation
+        AnimationType = InOut
+        Duration = 0.300000011920929000
+        OnFinish = AnimationFinish
+        PropertyName = 'Height'
+        StartValue = 0.000000000000000000
+        StopValue = 97.000000000000000000
+      end
+    end
+  end
+end

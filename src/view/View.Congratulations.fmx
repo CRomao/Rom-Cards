@@ -1,0 +1,238 @@
+object ViewCongratulations: TViewCongratulations
+  Align = Contents
+  Size.Width = 475.000000000000000000
+  Size.Height = 296.000000000000000000
+  Size.PlatformDefault = False
+  object lytContainer: TLayout
+    Align = Contents
+    Size.Width = 475.000000000000000000
+    Size.Height = 296.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object rtgContainer: TRectangle
+      Align = Contents
+      Fill.Color = claBlack
+      Opacity = 0.699999988079071000
+      Size.Width = 475.000000000000000000
+      Size.Height = 296.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lytOptions: TLayout
+      Align = Center
+      Size.Width = 326.000000000000000000
+      Size.Height = 210.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object rtgOptions: TRectangle
+        Align = Client
+        Fill.Color = claWhite
+        Size.Width = 326.000000000000000000
+        Size.Height = 210.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object lblTitle: TLabel
+          Align = Top
+          StyledSettings = [Family, FontColor]
+          Position.Y = 25.000000000000000000
+          Size.Width = 326.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = 'Parab'#233'ns, voc'#234' conseguiu!'
+          TabOrder = 1
+        end
+        object Layout1: TLayout
+          Align = Top
+          Size.Width = 326.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          object rtgTopClose: TRectangle
+            Align = Contents
+            Fill.Color = xFF727272
+            Sides = [Top]
+            Size.Width = 326.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            XRadius = 4.000000000000000000
+            YRadius = 4.000000000000000000
+            object Rectangle9: TRectangle
+              Align = Right
+              Fill.Kind = None
+              Margins.Right = 5.000000000000000000
+              Position.X = 271.000000000000000000
+              Size.Width = 25.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Kind = None
+            end
+            object rtgClose: TRectangle
+              Align = Right
+              Fill.Kind = None
+              Position.X = 301.000000000000000000
+              Size.Width = 25.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Kind = None
+              object imgClose: TImage
+                MultiResBitmap = <
+                  item
+                    Width = 25
+                    Height = 25
+                    PNG = {
+                      89504E470D0A1A0A0000000D4948445200000019000000190806000000C4E985
+                      63000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                      00CD49444154484BED94ED0DC3200C44334A46E968DDA4A374940E82103DA7BE
+                      36500C86FCA82AE54951801C7EF9202C27FF434AE982E3AADD269293BC767DA8
+                      80344531C69B8442080F9C7C2209CAA482AA8802E21621248F5E231395821DAE
+                      57DC15590219DF0A78C19CAA0885EEDACC181610CCB59E28635A4050A3293A2C
+                      20BA6ABE90718D1C43EE546B5AF85693854340E6449600E3D5D505C6440DC1F6
+                      91D174FDB0263D01C1D0BC08A1F595FD500A082ED544EE4DF22DB2040491BD68
+                      78BB5F7B0282AC88C604273F64599E4F8BA4B5C9EAB92A0000000049454E44AE
+                      426082}
+                    FileName = 
+                      'D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\img' +
+                      '\cards\menu\close-thick-custom.png'
+                  end>
+                Align = Client
+                Cursor = crHandPoint
+                Size.Width = 25.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                OnClick = imgCloseClick
+              end
+            end
+          end
+        end
+        object lblInformation: TLabel
+          Align = Top
+          StyledSettings = [Family, FontColor]
+          Position.Y = 50.000000000000000000
+          Size.Width = 326.000000000000000000
+          Size.Height = 47.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = 'Informe o seu nickname para ser adicionado ao Rank Global:'
+          TabOrder = 0
+        end
+        object edtNickName: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 3
+          MaxLength = 15
+          Position.X = 8.000000000000000000
+          Position.Y = 124.000000000000000000
+          Size.Width = 273.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object lblNickname: TLabel
+          Position.X = 8.000000000000000000
+          Position.Y = 105.000000000000000000
+          Size.Width = 249.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          Text = 'Nickname (m'#225'ximo 15 caracteres)'
+          TabOrder = 4
+        end
+        object rtgNo: TRectangle
+          Cursor = crHandPoint
+          Position.X = 95.000000000000000000
+          Position.Y = 168.000000000000000000
+          Size.Width = 97.000000000000000000
+          Size.Height = 34.000000000000000000
+          Size.PlatformDefault = False
+          XRadius = 10.000000000000000000
+          YRadius = 10.000000000000000000
+          OnClick = rtgNoClick
+          object lblNo: TLabel
+            Align = Contents
+            StyledSettings = [Family, Size, FontColor]
+            Size.Width = 97.000000000000000000
+            Size.Height = 34.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.HorzAlign = Center
+            Text = 'Cancelar'
+            TabOrder = 0
+          end
+        end
+        object rtgYes: TRectangle
+          Cursor = crHandPoint
+          Position.X = 210.000000000000000000
+          Position.Y = 168.000000000000000000
+          Size.Width = 97.000000000000000000
+          Size.Height = 34.000000000000000000
+          Size.PlatformDefault = False
+          XRadius = 10.000000000000000000
+          YRadius = 10.000000000000000000
+          OnClick = rtgYesClick
+          object lblYes: TLabel
+            Align = Contents
+            StyledSettings = [Family, Size]
+            Size.Width = 97.000000000000000000
+            Size.Height = 34.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.HorzAlign = Center
+            Text = 'Confirmar'
+            TabOrder = 0
+          end
+        end
+      end
+      object Animation: TFloatAnimation
+        AnimationType = InOut
+        Duration = 0.300000011920929000
+        OnFinish = AnimationFinish
+        PropertyName = 'Height'
+        StartValue = 0.000000000000000000
+        StopValue = 210.000000000000000000
+      end
+    end
+  end
+  object RESTClient: TRESTClient
+    BaseURL = 'https://iglkytpfpsbuivxvksog.supabase.co/rest/v1/ranking'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 424
+    Top = 64
+  end
+  object Req: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient
+    Method = rmPOST
+    Params = <
+      item
+        Kind = pkHTTPHEADER
+        Name = 'apikey'
+        Value = 
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ' +
+          'lZiI6ImlnbGt5dHBmcHNidWl2eHZrc29nIiwicm9sZSI6ImFub24iLCJpYXQiOjE' +
+          '3MDQ5MjQ4NDIsImV4cCI6MjAyMDUwMDg0Mn0.LiBLDiCZ_crgDs-aIhgT-Ni5dec' +
+          '4NZhoZDVVkAmAo78'
+      end
+      item
+        Kind = pkHTTPHEADER
+        Name = 'Authorization'
+        Value = 
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz' +
+          'ZSIsInJlZiI6ImlnbGt5dHBmcHNidWl2eHZrc29nIiwicm9sZSI6ImFub24iLCJp' +
+          'YXQiOjE3MDQ5MjQ4NDIsImV4cCI6MjAyMDUwMDg0Mn0.LiBLDiCZ_crgDs-aIhgT' +
+          '-Ni5dec4NZhoZDVVkAmAo78'
+      end>
+    Response = Res
+    SynchronizedEvents = False
+    Left = 424
+    Top = 8
+  end
+  object Res: TRESTResponse
+    Left = 424
+    Top = 120
+  end
+end
