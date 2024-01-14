@@ -44,6 +44,8 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    imgMenu: TImage;
+    Label4: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure imgRefreshStockClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -56,12 +58,14 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
     procedure imgTipClick(Sender: TObject);
+    procedure imgMenuClick(Sender: TObject);
   private
     procedure ReporEstoque(AOriginStackID, ADestinyStackID: integer; SpecialMovement: Boolean);
     procedure OnFinishAnimation(Sender: TObject);
     procedure GetTipCard;
     procedure UndoMovement;
     procedure ExitGame;
+    procedure PauseGame;
     { Private declarations }
   public
     { Public declarations }
@@ -116,22 +120,12 @@ end;
 
 procedure TViewPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
-var
-  LViewPauseGame: TViewPauseGame;
 begin
   if (Key = VK_ESCAPE) then
     ExitGame;
 
   if (KeyChar = ' ') and not FPausedGame then
-  begin
-    FPausedGame:= True;
-    LViewPauseGame:= TViewPauseGame.Create(ViewPrincipal);
-    LViewPauseGame.Parent:= ViewPrincipal;
-    LViewPauseGame.BringToFront;
-    LViewPauseGame.lytContent.Visible:= False;
-    Timer.Enabled:= False;
-    LViewPauseGame.Animation.Enabled:= True;
-  end;
+    PauseGame;
 
   if (UpperCase(KeyChar) = 'F' ) and not FViewTipVisible then
     GetTipCard;
@@ -141,6 +135,19 @@ begin
 
   if (UpperCase(KeyChar) = 'R' ) then
     ReporEstoque(8, 7, False);
+end;
+
+procedure TViewPrincipal.PauseGame;
+var
+  LViewPauseGame: TViewPauseGame;
+begin
+  FPausedGame:= True;
+  LViewPauseGame:= TViewPauseGame.Create(ViewPrincipal);
+  LViewPauseGame.Parent:= ViewPrincipal;
+  LViewPauseGame.BringToFront;
+  LViewPauseGame.lytContent.Visible:= False;
+  Timer.Enabled:= False;
+  LViewPauseGame.Animation.Enabled:= True;
 end;
 
 procedure TViewPrincipal.imgCloseClick(Sender: TObject);
@@ -159,6 +166,11 @@ begin
   ViewExitGame.rtgNo.Visible:= False;
   ViewExitGame.rtgYes.Visible:= False;
   ViewExitGame.Animation.Enabled:= True;
+end;
+
+procedure TViewPrincipal.imgMenuClick(Sender: TObject);
+begin
+  PauseGame;
 end;
 
 procedure TViewPrincipal.imgMinimizeClick(Sender: TObject);
