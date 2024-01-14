@@ -17,7 +17,8 @@ uses
   Provider.Functions in 'src\provider\Provider.Functions.pas',
   View.HowToPlay in 'src\view\View.HowToPlay.pas' {ViewHowToPlay: TFrame},
   View.Ranking in 'src\view\View.Ranking.pas' {ViewRanking: TFrame},
-  View.PauseGame in 'src\view\View.PauseGame.pas' {ViewPauseGame: TFrame};
+  View.PauseGame in 'src\view\View.PauseGame.pas' {ViewPauseGame: TFrame},
+  View.HelperPenalty in 'src\view\View.HelperPenalty.pas' {ViewHelperPenalty: TFrame};
 
 {$R *.res}
 

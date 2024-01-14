@@ -1,0 +1,166 @@
+object ViewHelperPenalty: TViewHelperPenalty
+  Align = Contents
+  Size.Width = 542.000000000000000000
+  Size.Height = 426.000000000000000000
+  Size.PlatformDefault = False
+  object lytContainer: TLayout
+    Align = Contents
+    Size.Width = 542.000000000000000000
+    Size.Height = 426.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object rtgContainer: TRectangle
+      Align = Contents
+      Fill.Color = claBlack
+      Opacity = 0.699999988079071000
+      Size.Width = 542.000000000000000000
+      Size.Height = 426.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lytOptions: TLayout
+      Align = Center
+      Size.Width = 359.000000000000000000
+      Size.Height = 142.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object rtgOptions: TRectangle
+        Align = Client
+        Fill.Color = claWhite
+        Size.Width = 359.000000000000000000
+        Size.Height = 142.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object Layout1: TLayout
+          Align = Top
+          Size.Width = 359.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object rtgTopClose: TRectangle
+            Align = Contents
+            Fill.Color = xFF727272
+            Sides = [Top]
+            Size.Width = 359.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            XRadius = 4.000000000000000000
+            YRadius = 4.000000000000000000
+            object Rectangle9: TRectangle
+              Align = Right
+              Fill.Kind = None
+              Margins.Right = 5.000000000000000000
+              Position.X = 304.000000000000000000
+              Size.Width = 25.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Kind = None
+            end
+            object rtgClose: TRectangle
+              Align = Right
+              Fill.Kind = None
+              Position.X = 334.000000000000000000
+              Size.Width = 25.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Kind = None
+              object imgClose: TImage
+                MultiResBitmap = <
+                  item
+                    Width = 25
+                    Height = 25
+                    PNG = {
+                      89504E470D0A1A0A0000000D4948445200000019000000190806000000C4E985
+                      63000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                      00CD49444154484BED94ED0DC3200C44334A46E968DDA4A374940E82103DA7BE
+                      36500C86FCA82AE54951801C7EF9202C27FF434AE982E3AADD269293BC767DA8
+                      80344531C69B8442080F9C7C2209CAA482AA8802E21621248F5E231395821DAE
+                      57DC15590219DF0A78C19CAA0885EEDACC181610CCB59E28635A4050A3293A2C
+                      20BA6ABE90718D1C43EE546B5AF85693854340E6449600E3D5D505C6440DC1F6
+                      91D174FDB0263D01C1D0BC08A1F595FD500A082ED544EE4DF22DB2040491BD68
+                      78BB5F7B0282AC88C604273F64599E4F8BA4B5C9EAB92A0000000049454E44AE
+                      426082}
+                    FileName = 
+                      'D:\projetos-delphi\YouTube\ArrisqueseEmProgramar\DragAndDrop\img' +
+                      '\cards\menu\close-thick-custom.png'
+                  end>
+                Align = Client
+                Cursor = crHandPoint
+                Size.Width = 25.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                OnClick = imgCloseClick
+              end
+            end
+          end
+        end
+        object lytContents: TLayout
+          Align = Client
+          Size.Width = 359.000000000000000000
+          Size.Height = 117.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          object lblTitle: TLabel
+            Align = Top
+            AutoSize = True
+            StyledSettings = [Family, FontColor]
+            Margins.Bottom = 5.000000000000000000
+            Size.Width = 359.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.HorzAlign = Center
+            Text = 'Aten'#231#227'o'
+            TabOrder = 0
+          end
+          object lblObs1: TLabel
+            Align = Top
+            AutoSize = True
+            StyledSettings = [Family, FontColor]
+            Margins.Left = 5.000000000000000000
+            Margins.Right = 5.000000000000000000
+            Margins.Bottom = 10.000000000000000000
+            Position.X = 5.000000000000000000
+            Position.Y = 27.000000000000000000
+            Size.Width = 349.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            Text = 
+              '1'#186' Para cada movimento desfeito, ser'#225' acrescentado 2 segundos a ' +
+              'mais no tempo final.'
+            TabOrder = 2
+          end
+          object lblObs2: TLabel
+            Align = Top
+            AutoSize = True
+            StyledSettings = [Family, FontColor]
+            Margins.Left = 5.000000000000000000
+            Margins.Right = 5.000000000000000000
+            Position.X = 5.000000000000000000
+            Position.Y = 69.000000000000000000
+            Size.Width = 349.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            Text = 
+              '2'#186' Para cada dica solicitada, ser'#225' acrescentado 4 segundos a mai' +
+              's no tempo final.'
+            TabOrder = 1
+          end
+        end
+      end
+      object Animation: TFloatAnimation
+        AnimationType = InOut
+        Duration = 0.300000011920929000
+        OnFinish = AnimationFinish
+        PropertyName = 'Height'
+        StartValue = 0.000000000000000000
+        StopValue = 142.000000000000000000
+      end
+    end
+  end
+end

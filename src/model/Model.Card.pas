@@ -269,15 +269,10 @@ begin
           var LViewCongratulations: TViewCongratulations;
 
           LViewCongratulations:= TViewCongratulations.Create(ViewPrincipal);
-
+          LViewCongratulations.CalculatedTimeEndGame;
           LViewCongratulations.Parent:= ViewPrincipal;
           LViewCongratulations.BringToFront;
-          LViewCongratulations.lblTitle.Visible:= False;
-          LViewCongratulations.rtgNo.Visible:= False;
-          LViewCongratulations.rtgYes.Visible:= False;
-          LViewCongratulations.lblNickname.Visible:= False;
-          LViewCongratulations.lblInformation.Visible:= False;
-          LViewCongratulations.edtNickName.Visible:= False;
+          LViewCongratulations.lytContents.Visible:= False;
           LViewCongratulations.Animation.Enabled:= True;
         end;
       end;

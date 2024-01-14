@@ -46,6 +46,7 @@ type
     Label3: TLabel;
     imgMenu: TImage;
     Label4: TLabel;
+    imgHelpPenalty: TImage;
     procedure FormCreate(Sender: TObject);
     procedure imgRefreshStockClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -59,6 +60,7 @@ type
       Shift: TShiftState);
     procedure imgTipClick(Sender: TObject);
     procedure imgMenuClick(Sender: TObject);
+    procedure imgHelpPenaltyClick(Sender: TObject);
   private
     procedure ReporEstoque(AOriginStackID, ADestinyStackID: integer; SpecialMovement: Boolean);
     procedure OnFinishAnimation(Sender: TObject);
@@ -72,6 +74,8 @@ type
     FTempoCronometro, FHoras, FMinutos, FSegundos: integer;
     FTempoCronometroText: string;
     FPausedGame, FViewTipVisible, FUndoInProcess: Boolean;
+    FNumberOfTipsUsed, FNumberOfMovementsUndone: Integer;
+    procedure CalculatedTimeRunning;
   end;
 
 const
@@ -84,7 +88,7 @@ var
 implementation
 
 uses
-  View.ExitGame, View.Tip, Provider.Loading, Provider.Functions, View.PauseGame;
+  View.ExitGame, View.Tip, Provider.Loading, Provider.Functions, View.PauseGame, View.HelperPenalty;
 
 {$R *.fmx}
 
@@ -116,6 +120,8 @@ begin
 
   Timer.Enabled:= True;
   FTempoCronometro:= 0;
+  FNumberOfTipsUsed:= 0;
+  FNumberOfMovementsUndone:= 0;
 end;
 
 procedure TViewPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
@@ -153,6 +159,17 @@ end;
 procedure TViewPrincipal.imgCloseClick(Sender: TObject);
 begin
   ExitGame;
+end;
+
+procedure TViewPrincipal.imgHelpPenaltyClick(Sender: TObject);
+var
+  LViewHelperPenalty: TViewHelperPenalty;
+begin
+  LViewHelperPenalty:= TViewHelperPenalty.Create(nil);
+  LViewHelperPenalty.Parent:= ViewPrincipal;
+  LViewHelperPenalty.BringToFront;
+  LViewHelperPenalty.lytContents.Visible:= False;
+  LViewHelperPenalty.Animation.Enabled:= True;
 end;
 
 procedure TViewPrincipal.ExitGame;
@@ -202,6 +219,7 @@ begin
   end
   else
   begin
+    Inc(FNumberOfTipsUsed);
     FViewTipVisible:= True;
     ViewTip:= TViewTip.Create(ViewPrincipal);
     ViewTip.Parent:= ViewPrincipal;
@@ -226,6 +244,7 @@ var
 begin
   if (TControllerMovement.GeListMovement.Count > 1) then
   begin
+    Inc(FNumberOfMovementsUndone);
     imgUndo.Enabled:= False;
     FUndoInProcess:= True;
     if TControllerMovement.GetLastMovement.SPECIAL_MOVEMENT then
@@ -489,11 +508,16 @@ end;
 procedure TViewPrincipal.TimerTimer(Sender: TObject);
 begin
   Inc(FTempoCronometro);
+  CalculatedTimeRunning;
+  lblTimerGame.Text:= 'Tempo: ' + FTempoCronometroText;
+end;
+
+procedure TViewPrincipal.CalculatedTimeRunning;
+begin
   FHoras := FTempoCronometro div 3600;
   FMinutos := (FTempoCronometro div 60) mod 60;
   FSegundos := FTempoCronometro mod 60;
   FTempoCronometroText:= Format('%.2d:%.2d:%.2d', [FHoras, FMinutos, FSegundos]);
-  lblTimerGame.Text:= 'Tempo: ' + FTempoCronometroText;
 end;
 
 end.

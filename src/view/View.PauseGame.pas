@@ -81,6 +81,8 @@ begin
   SplitCardsToStack(ViewPrincipal.imgAssemblyClub, 11);
   SplitCardsToStack(ViewPrincipal.imgAssemblySpade, 12);
   ViewPrincipal.FTempoCronometro:= 0;
+  ViewPrincipal.FNumberOfTipsUsed:= 0;
+  ViewPrincipal.FNumberOfMovementsUndone:= 0;
   ViewPrincipal.Timer.Enabled:= True;
   CloseAll;
 end;
