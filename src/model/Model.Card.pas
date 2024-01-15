@@ -264,16 +264,15 @@ begin
 
       if (S.STACK_ID in [9, 10, 11,12]) then
       begin
-       if TControllerStacks.FinishedGame then
-       begin
-          var LViewCongratulations: TViewCongratulations;
-
-          LViewCongratulations:= TViewCongratulations.Create(ViewPrincipal);
-          LViewCongratulations.CalculatedTimeEndGame;
-          LViewCongratulations.Parent:= ViewPrincipal;
-          LViewCongratulations.BringToFront;
-          LViewCongratulations.lytContents.Visible:= False;
-          LViewCongratulations.Animation.Enabled:= True;
+        if TControllerStacks.FinishedGame then
+        begin
+           var LViewCongratulations: TViewCongratulations;
+           LViewCongratulations:= TViewCongratulations.Create(ViewPrincipal);
+           LViewCongratulations.CalculatedTimeEndGame;
+           LViewCongratulations.Parent:= ViewPrincipal;
+           LViewCongratulations.BringToFront;
+           LViewCongratulations.lytContents.Visible:= False;
+           LViewCongratulations.Animation.Enabled:= True;
         end;
       end;
 

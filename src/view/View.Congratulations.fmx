@@ -177,7 +177,7 @@ object ViewCongratulations: TViewCongratulations
             AutoSize = True
             StyledSettings = [Family, FontColor]
             Margins.Left = 10.000000000000000000
-            Margins.Bottom = 15.000000000000000000
+            Margins.Bottom = 10.000000000000000000
             Position.X = 10.000000000000000000
             Position.Y = 110.000000000000000000
             Size.Width = 496.000000000000000000
@@ -191,7 +191,7 @@ object ViewCongratulations: TViewCongratulations
             Align = Top
             StyledSettings = [Family, FontColor]
             Margins.Bottom = 12.000000000000000000
-            Position.Y = 147.000000000000000000
+            Position.Y = 143.000000000000000000
             Size.Width = 506.000000000000000000
             Size.Height = 22.000000000000000000
             Size.PlatformDefault = False
@@ -203,8 +203,10 @@ object ViewCongratulations: TViewCongratulations
           end
           object lblNickname: TLabel
             Align = Top
-            Position.Y = 181.000000000000000000
-            Size.Width = 506.000000000000000000
+            Margins.Left = 10.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 177.000000000000000000
+            Size.Width = 496.000000000000000000
             Size.Height = 17.000000000000000000
             Size.PlatformDefault = False
             Text = 'Nickname (m'#225'ximo 15 caracteres)'
@@ -223,7 +225,7 @@ object ViewCongratulations: TViewCongratulations
               Align = Right
               Cursor = crHandPoint
               Margins.Right = 12.000000000000000000
-              Position.X = 300.000000000000000000
+              Position.X = 290.000000000000000000
               Size.Width = 97.000000000000000000
               Size.Height = 34.000000000000000000
               Size.PlatformDefault = False
@@ -245,7 +247,8 @@ object ViewCongratulations: TViewCongratulations
             object rtgYes: TRectangle
               Align = Right
               Cursor = crHandPoint
-              Position.X = 409.000000000000000000
+              Margins.Right = 10.000000000000000000
+              Position.X = 399.000000000000000000
               Size.Width = 97.000000000000000000
               Size.Height = 34.000000000000000000
               Size.PlatformDefault = False
@@ -267,9 +270,11 @@ object ViewCongratulations: TViewCongratulations
           end
           object lytNickName: TLayout
             Align = Top
+            Margins.Left = 10.000000000000000000
             Margins.Bottom = 12.000000000000000000
-            Position.Y = 198.000000000000000000
-            Size.Width = 506.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 194.000000000000000000
+            Size.Width = 496.000000000000000000
             Size.Height = 22.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 9
@@ -282,6 +287,14 @@ object ViewCongratulations: TViewCongratulations
               Size.Height = 22.000000000000000000
               Size.PlatformDefault = False
             end
+          end
+          object Line1: TLine
+            Align = Top
+            LineType = Diagonal
+            Position.Y = 142.000000000000000000
+            Size.Width = 506.000000000000000000
+            Size.Height = 1.000000000000000000
+            Size.PlatformDefault = False
           end
         end
       end

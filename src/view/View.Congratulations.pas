@@ -39,6 +39,7 @@ type
     lytButtons: TLayout;
     lytNickName: TLayout;
     edtNickName: TEdit;
+    Line1: TLine;
     procedure rtgNoClick(Sender: TObject);
     procedure AnimationFinish(Sender: TObject);
     procedure rtgYesClick(Sender: TObject);
@@ -76,12 +77,7 @@ begin
   else
   begin
     ViewPrincipal.Timer.Enabled:= False;
-    lblTitle.Visible:= True;
-    rtgNo.Visible:= True;
-    rtgYes.Visible:= True;
-    lblNickname.Visible:= True;
-    lblInformation.Visible:= True;
-    edtNickName.Visible:= True;
+    lytContents.Visible:= True;
   end;
 end;
 
