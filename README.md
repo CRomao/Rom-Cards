@@ -12,5 +12,7 @@ No desenvolvimento do jogo foi utilizado:
 * Padrão de projeto Singleton;
 * Supabase - para a criação e utilização do banco de dados na nuvem para poder registrar o ranking dos jogadores;
 * Projeto estruturado em MVC;
+* POO;
+
 
 O Rank dos Jogadores é ordenado pelo menor tempo final de jogo.
