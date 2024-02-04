@@ -9,7 +9,7 @@ interface
 implementation
 
 uses
-  Controller.Cards, Controller.Stacks, Model.Card, FMX.Objects, View.Principal;
+  Controller.Cards, Controller.Stacks, Controller.Movement, Model.Card, FMX.Objects, View.Principal;
 
 procedure CloseGame;
 begin

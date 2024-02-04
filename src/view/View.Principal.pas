@@ -62,7 +62,7 @@ type
     procedure imgMenuClick(Sender: TObject);
     procedure imgHelpPenaltyClick(Sender: TObject);
   private
-    procedure ReporEstoque(AOriginStackID, ADestinyStackID: integer; SpecialMovement: Boolean);
+    procedure ReporEstoque(AOriginStackType, ADestinyStackType: TStackType; SpecialMovement: Boolean);
     procedure OnFinishAnimation(Sender: TObject);
     procedure GetTipCard;
     procedure UndoMovement;
@@ -88,7 +88,7 @@ var
 implementation
 
 uses
-  View.ExitGame, View.Tip, Provider.Loading, Provider.Functions, View.PauseGame, View.HelperPenalty;
+  View.ExitGame, View.Tip, Provider.Loading, Provider.Functions, View.PauseGame, View.HelperPenalty, Model.Movement, Controller.Movement;
 
 {$R *.fmx}
 
@@ -140,7 +140,7 @@ begin
     UndoMovement;
 
   if (UpperCase(KeyChar) = 'R' ) then
-    ReporEstoque(8, 7, False);
+    ReporEstoque(tstDiscard, tstStock, False);
 end;
 
 procedure TViewPrincipal.PauseGame;
@@ -197,7 +197,7 @@ end;
 
 procedure TViewPrincipal.imgRefreshStockClick(Sender: TObject);
 begin
-  ReporEstoque(8, 7, False);
+  ReporEstoque(tstDiscard, tstStock, False);
 end;
 
 procedure TViewPrincipal.imgTipClick(Sender: TObject);
@@ -250,7 +250,7 @@ begin
     if TControllerMovement.GetLastMovement.SPECIAL_MOVEMENT then
     begin
       try
-        ReporEstoque(7, 8, True);
+        ReporEstoque(tstStock, tstDiscard, True);
         TControllerMovement.GeListMovement.Items[Pred(TControllerMovement.GeListMovement.Count)].DisposeOf;
         TControllerMovement.GeListMovement.Delete(Pred(TControllerMovement.GeListMovement.Count));
       finally
@@ -272,7 +272,7 @@ begin
       LLastCardMoved.Align:= TAlignLayout.None;
       LLastCardMoved.Parent:= lytContainer;
 
-      LLastCardMoved.STACK_ID:= LLastMovement.ORIGIN_STACK_ID;
+      LLastCardMoved.STACK_TYPE:= LLastMovement.ORIGIN_STACK_TYPE;
       LLastCardMoved.PREVIOUS_CARD:=  LLastMovement.PREVIOUS_CARD;
 
       LLastMovement.PREVIOUS_CARD.NEXT_CARD:= LLastCardMoved;
@@ -281,7 +281,7 @@ begin
       aux:= LLastCardMoved;
       while (aux <> nil) do
       begin
-        aux.STACK_ID:= LLastMovement.ORIGIN_STACK_ID;
+        aux.STACK_TYPE:= LLastMovement.ORIGIN_STACK_TYPE;
         aux:= aux.NEXT_CARD;
       end;
 
@@ -320,51 +320,54 @@ begin
         }
 
         {1-stack for stack}
-        if (LLastMovement.DESTINY_STACK_ID in [0, 1, 2, 3, 4, 5, 6]) and (LLastMovement.ORIGIN_STACK_ID in [0, 1, 2, 3, 4, 5, 6]) then
+        if (LLastMovement.DESTINY_STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) and
+           (LLastMovement.ORIGIN_STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) then
         begin
-          LAnimationX.StartValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.DESTINY_STACK_ID).CARD.Parent).Position.X;
-          LAnimationX.StopValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.ORIGIN_STACK_ID).CARD.Parent).Position.X;
+          LAnimationX.StartValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.DESTINY_STACK_TYPE).CARD.Parent).Position.X;
+          LAnimationX.StopValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.ORIGIN_STACK_TYPE).CARD.Parent).Position.X;
 
-          LAnimationY.StartValue:= TControllerStacks.GetTotalCardsStack(LLastMovement.DESTINY_STACK_ID) * 23;
-          LAnimationY.StopValue:= (TControllerStacks.GetTotalCardsStack(LLastMovement.ORIGIN_STACK_ID)-1) * 22;
+          LAnimationY.StartValue:= TControllerStacks.GetTotalCardsStack(LLastMovement.DESTINY_STACK_TYPE) * 23;
+          LAnimationY.StopValue:= (TControllerStacks.GetTotalCardsStack(LLastMovement.ORIGIN_STACK_TYPE)-1) * 22;
         end
         else {2-assembly for stack}
-        if (LLastMovement.DESTINY_STACK_ID in [9, 10, 11, 12]) and (LLastMovement.ORIGIN_STACK_ID in [0, 1, 2, 3, 4, 5, 6]) then
+        if (LLastMovement.DESTINY_STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) and
+           (LLastMovement.ORIGIN_STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) then
         begin
           LAnimationX.StartValue:= 567;
-          LAnimationX.StopValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.ORIGIN_STACK_ID).CARD.Parent).Position.X;
+          LAnimationX.StopValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.ORIGIN_STACK_TYPE).CARD.Parent).Position.X;
 
 
           {verify the position Y for each assembly}
-          case LLastMovement.DESTINY_STACK_ID of
-            9: LAnimationY.StartValue:= 20;
-            10: LAnimationY.StartValue:= 115;
-            11: LAnimationY.StartValue:= 210;
-            12: LAnimationY.StartValue:= 305;
+          case LLastMovement.DESTINY_STACK_TYPE of
+            tstAssemblyHeart: LAnimationY.StartValue:= 20;
+            tstAssemblyDiamond: LAnimationY.StartValue:= 115;
+            tstAssemblyClub: LAnimationY.StartValue:= 210;
+            tstAssemblySpade: LAnimationY.StartValue:= 305;
           end;
 
-          LAnimationY.StopValue:= (TControllerStacks.GetTotalCardsStack(LLastMovement.ORIGIN_STACK_ID)-1) * 22;
+          LAnimationY.StopValue:= (TControllerStacks.GetTotalCardsStack(LLastMovement.ORIGIN_STACK_TYPE)-1) * 22;
         end
         else{6-stack for assembly}
-        if (LLastMovement.DESTINY_STACK_ID in [0, 1, 2, 3, 4, 5, 6]) and (LLastMovement.ORIGIN_STACK_ID in [9, 10, 11, 12]) then
+        if (LLastMovement.DESTINY_STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) and
+           (LLastMovement.ORIGIN_STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) then
         begin
-          LAnimationX.StartValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.DESTINY_STACK_ID).CARD.Parent).Position.X;
+          LAnimationX.StartValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.DESTINY_STACK_TYPE).CARD.Parent).Position.X;
           LAnimationX.StopValue:= 567;
 
-          LAnimationY.StartValue:= TControllerStacks.GetTotalCardsStack(LLastMovement.DESTINY_STACK_ID) * 23;
+          LAnimationY.StartValue:= TControllerStacks.GetTotalCardsStack(LLastMovement.DESTINY_STACK_TYPE) * 23;
           {verify the position Y for each assembly}
-          case LLastMovement.ORIGIN_STACK_ID of
-            9: LAnimationY.StopValue:= 20;
-            10: LAnimationY.StopValue:= 115;
-            11: LAnimationY.StopValue:= 210;
-            12: LAnimationY.StopValue:= 305;
+          case LLastMovement.ORIGIN_STACK_TYPE of
+            tstAssemblyHeart: LAnimationY.StopValue:= 20;
+            tstAssemblyDiamond: LAnimationY.StopValue:= 115;
+            tstAssemblyClub: LAnimationY.StopValue:= 210;
+            tstAssemblySpade: LAnimationY.StopValue:= 305;
           end;
         end
         else {3-discard for stock}
-        if (LLastMovement.DESTINY_STACK_ID in [8]) and (LLastMovement.ORIGIN_STACK_ID in [7]) then
+        if (LLastMovement.DESTINY_STACK_TYPE in [tstDiscard]) and (LLastMovement.ORIGIN_STACK_TYPE in [tstStock]) then
         begin
           LAnimationX.StartValue:= 6;
-          LAnimationX.StopValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.ORIGIN_STACK_ID).CARD.Parent).Position.X;
+          LAnimationX.StopValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.ORIGIN_STACK_TYPE).CARD.Parent).Position.X;
 
           LAnimationY.StartValue:= 115;
           LAnimationY.StopValue:= 20;
@@ -372,26 +375,27 @@ begin
           LLastCardMoved.Bitmap.LoadFromFile(LLastCardMoved.IMAGE_CARD_DEFAULT_LOCATION);
         end
         else {4-stack for discard}
-        if (LLastMovement.DESTINY_STACK_ID in [0, 1, 2, 3, 4, 5, 6]) and (LLastMovement.ORIGIN_STACK_ID in [8]) then
+        if (LLastMovement.DESTINY_STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) and
+           (LLastMovement.ORIGIN_STACK_TYPE in [tstDiscard]) then
         begin
-          LAnimationX.StartValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.DESTINY_STACK_ID).CARD.Parent).Position.X;
+          LAnimationX.StartValue:= TRectangle(TControllerStacks.GetStack(LLastMovement.DESTINY_STACK_TYPE).CARD.Parent).Position.X;
           LAnimationX.StopValue:= 6;
 
-          LAnimationY.StartValue:= TControllerStacks.GetTotalCardsStack(LLastMovement.DESTINY_STACK_ID) * 23;
+          LAnimationY.StartValue:= TControllerStacks.GetTotalCardsStack(LLastMovement.DESTINY_STACK_TYPE) * 23;
           LAnimationY.StopValue:= 115;
         end
         else {5-assembly for discard}
-        if (LLastMovement.DESTINY_STACK_ID in [9, 10, 11, 12]) and (LLastMovement.ORIGIN_STACK_ID in [8]) then
+        if (LLastMovement.DESTINY_STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) and (LLastMovement.ORIGIN_STACK_TYPE in [tstDiscard]) then
         begin
           LAnimationX.StartValue:= 567;
           LAnimationY.StopValue:= 6;
 
           {verify the position Y for each assembly}
-          case LLastMovement.DESTINY_STACK_ID of
-            9: LAnimationY.StartValue:= 20;
-            10: LAnimationY.StartValue:= 115;
-            11: LAnimationY.StartValue:= 210;
-            12: LAnimationY.StartValue:= 305;
+          case LLastMovement.DESTINY_STACK_TYPE of
+            tstAssemblyHeart: LAnimationY.StartValue:= 20;
+            tstAssemblyDiamond: LAnimationY.StartValue:= 115;
+            tstAssemblyClub: LAnimationY.StartValue:= 210;
+            tstAssemblySpade: LAnimationY.StartValue:= 305;
           end;
           LAnimationY.StopValue:= 115;
         end;
@@ -423,8 +427,8 @@ begin
     end;
 
     {teste - aplicar padding de acordo com a pilha que a carta vai ficars}
-    case TControllerMovement.GetLastCardMoved.STACK_ID of
-      0,1,2,3,4,5,6:
+    case TControllerMovement.GetLastCardMoved.STACK_TYPE of
+      tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7:
       begin
         TControllerMovement.GetLastCardMoved.Padding.Top:= 23;
         if not (TControllerMovement.GetLastCardMoved.PREVIOUS_CARD = nil) and
@@ -450,27 +454,27 @@ begin
   end;
 end;
 
-procedure TViewPrincipal.ReporEstoque(AOriginStackID, ADestinyStackID: integer; SpecialMovement: Boolean);
+procedure TViewPrincipal.ReporEstoque(AOriginStackType, ADestinyStackType: TStackType; SpecialMovement: Boolean);
 var
   reporEstoque, estoqueFinal: TCard;
   tam, I: integer;
   LMovement: TMovement;
 begin
-  if ((TControllerStacks.GetListStack.Items[ADestinyStackID].CARD.NEXT_CARD = nil) and not (TControllerStacks.GetListStack.Items[AOriginStackID].CARD.NEXT_CARD = nil)) then
+  if ((TControllerStacks.GetListStack.Items[Ord(ADestinyStackType)].CARD.NEXT_CARD = nil) and not (TControllerStacks.GetListStack.Items[Ord(AOriginStackType)].CARD.NEXT_CARD = nil)) then
   begin
-    tam:= TControllerStacks.GetTotalCardsStack(AOriginStackID);
+    tam:= TControllerStacks.GetTotalCardsStack(AOriginStackType);
 
     for I := 0 to tam-1 do
     begin
-      reporEstoque:= TControllerStacks.GetLastCardStack(AOriginStackID);
-      estoqueFinal:= TControllerStacks.GetLastCardStack(ADestinyStackID);
+      reporEstoque:= TControllerStacks.GetLastCardStack(AOriginStackType);
+      estoqueFinal:= TControllerStacks.GetLastCardStack(ADestinyStackType);
 
       reporEstoque.PREVIOUS_CARD.NEXT_CARD:= nil;
       reporEstoque.PREVIOUS_CARD:= estoqueFinal;
       estoqueFinal.NEXT_CARD:= reporEstoque;
 
       estoqueFinal.AddObject(reporEstoque);
-      reporEstoque.STACK_ID:= ADestinyStackID;
+      reporEstoque.STACK_TYPE:= ADestinyStackType;
 
       if not SpecialMovement then
         reporEstoque.Bitmap.LoadFromFile(reporEstoque.IMAGE_CARD_DEFAULT_LOCATION)
@@ -490,9 +494,8 @@ begin
       LMovement.CARD:= nil;
       LMovement.PREVIOUS_CARD:= nil;
       LMovement.SPECIAL_MOVEMENT:= True;
-      LMovement.ORIGIN_STACK_ID:= AOriginStackID;
-      LMovement.DESTINY_STACK_ID:= ADestinyStackID;
-      LMovement.POINTS_MOVEMENT:= 0;
+      LMovement.ORIGIN_STACK_TYPE:= AOriginStackType;
+      LMovement.DESTINY_STACK_TYPE:= ADestinyStackType;
 
       TControllerMovement.SetMovement(LMovement);
     end;

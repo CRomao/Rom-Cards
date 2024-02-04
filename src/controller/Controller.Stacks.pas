@@ -15,17 +15,17 @@ type
   TControllerStacks = class
     private
       class var FListStack: TList<TStack>;
-      class function GetImageAssemblyStack(AStackID: integer): string;
+      class function GetImageAssemblyStack(AStackType: TStackType): string;
     public
       class function GetListStack: TList<TStack>;
       class procedure InitializeHeadStack;
       class procedure InitialDistribution(ACards: TList<TCard>);
       class procedure InitialStockDistribution(ACards: TList<TCard>);
-      class function GetStack(AStackID: integer): TStack;
+      class function GetStack(AStackType: TStackType): TStack;
       class procedure PrintCards;
       class procedure CleanMemory;
-      class function GetTotalCardsStack(AStackID: integer): Integer;
-      class function GetLastCardStack(AStackID: integer): TCard;
+      class function GetTotalCardsStack(AStackType: TStackType): Integer;
+      class function GetLastCardStack(AStackType: TStackType): TCard;
       class function FinishedGame: Boolean;
       class function GetTip: TList<string>;
   end;
@@ -46,7 +46,7 @@ begin
     LStack:= TStack.Create;
     LStack.CARD:= TCard.Create(nil);
     LStack.CARD.COLOR:= tccNone;
-    LStack.CARD.STACK_ID:= I;
+    LStack.CARD.STACK_TYPE:= TStackType(I);
 
     if (I >= 9) then //define the suit of head assembly for receive the cards
     begin
@@ -85,7 +85,7 @@ begin
       aux.NEXT_CARD:= ACards.Items[tam];
       aux:= aux.NEXT_CARD;
 
-      aux.STACK_ID:= aux2.STACK_ID;
+      aux.STACK_TYPE:= aux2.STACK_TYPE;
 
       aux.PREVIOUS_CARD:= aux2;
       aux2.AddObject(aux);
@@ -110,7 +110,7 @@ begin
     ACards.Items[i].VISIBLE:= True;
     ACards.Items[i].Bitmap.LoadFromFile(ACards.Items[i].IMAGE_CARD_DEFAULT_LOCATION);
     ACards.Items[i].Padding.Top:= 0;
-    ACards.Items[i].STACK_ID:= 7;
+    ACards.Items[i].STACK_TYPE:= tstStock;
     auxEstoque.AddObject(ACards.Items[i]);
 
     auxEstoque.NEXT_CARD:= ACards.Items[i];
@@ -160,25 +160,25 @@ begin
   TotalCardsAssembly:= 0;
 
   for I := 9 to 12 do
-    TotalCardsAssembly:= TotalCardsAssembly + GetTotalCardsStack(I);
+    TotalCardsAssembly:= TotalCardsAssembly + GetTotalCardsStack(TStackType(I));
 
   Result:= TotalCardsAssembly = 52;
 end;
 
-class function TControllerStacks.GetImageAssemblyStack(AStackID: integer): string;
+class function TControllerStacks.GetImageAssemblyStack(AStackType: TStackType): string;
 begin
   Result:= ExtractFilePath(ParamStr(0))+'/img/cards/stack/';
-  case AStackID of
-     9:Result:= Result + 'heart.png';
-    10:Result:= Result + 'diamond.png';
-    11:Result:= Result + 'club.png';
-    12:Result:= Result + 'spade.png';
+  case AStackType of
+    tstAssemblyHeart:Result:= Result + 'heart.png';
+    tstAssemblyDiamond:Result:= Result + 'diamond.png';
+    tstAssemblyClub:Result:= Result + 'club.png';
+    tstAssemblySpade:Result:= Result + 'spade.png';
   end;
 end;
 
-class function TControllerStacks.GetLastCardStack(AStackID: integer): TCard;
+class function TControllerStacks.GetLastCardStack(AStackType: TStackType): TCard;
 begin
-  Result:= GetStack(AStackID).CARD;
+  Result:= GetStack(AStackType).CARD;
 
   while (Result.NEXT_CARD <> nil) do
     Result:= Result.NEXT_CARD;
@@ -192,9 +192,9 @@ begin
   Result:= FListStack;
 end;
 
-class function TControllerStacks.GetStack(AStackID: integer): TStack;
+class function TControllerStacks.GetStack(AStackType: TStackType): TStack;
 begin
-  Result:= GetListStack.Items[AStackID];
+  Result:= GetListStack.Items[Ord(AStackType)];
 end;
 
 class function TControllerStacks.GetTip: TList<string>;
@@ -208,7 +208,7 @@ begin
 
   for I := 0 to 6 do   //stack for stack
   begin
-    aux:= GetStack(I).CARD;
+    aux:= GetStack(TStackType(I)).CARD;
 
     while (aux.NEXT_CARD <> nil) do
     begin
@@ -224,7 +224,7 @@ begin
 
     while((J <> I) and (J<7)) do
     begin
-      aux2:= GetStack(J).CARD;
+      aux2:= GetStack(TStackType(J)).CARD;
       while (aux2.NEXT_CARD <> nil ) do
         aux2:= aux2.NEXT_CARD;
 
@@ -253,19 +253,14 @@ begin
 
   for I := 0 to 6 do   //stack for assembly
   begin
-    aux:= GetStack(I).CARD;
+    aux:= GetStack(TStackType(I)).CARD;
 
     while (aux.NEXT_CARD <> nil) do
-    begin
       aux:= aux.NEXT_CARD;
-
-      {if aux.VISIBLE then
-        break;}
-    end;
 
     for J := 9 to 12 do
     begin
-      aux2:= GetStack(J).CARD;
+      aux2:= GetStack(TStackType(J)).CARD;
       while (aux2.NEXT_CARD <> nil ) do
         aux2:= aux2.NEXT_CARD;
 
@@ -276,7 +271,7 @@ begin
           Result.Add(aux.IMAGE_CARD_LOCATION);
 
           if (aux2.VALUE = 0) then
-            Result.Add(GetImageAssemblyStack(aux2.STACK_ID))
+            Result.Add(GetImageAssemblyStack(aux2.STACK_TYPE))
           else
             Result.Add(aux2.IMAGE_CARD_LOCATION);
 
@@ -287,7 +282,7 @@ begin
   end;
 
   //discard for assembly
-  aux:= GetStack(8).CARD;
+  aux:= GetStack(tstDiscard).CARD;
 
   while (aux.NEXT_CARD <> nil) do
     aux:= aux.NEXT_CARD;
@@ -295,7 +290,7 @@ begin
 
   for J := 9 to 12 do
   begin
-    aux2:= GetStack(J).CARD;
+    aux2:= GetStack(TStackType(J)).CARD;
     while (aux2.NEXT_CARD <> nil ) do
       aux2:= aux2.NEXT_CARD;
 
@@ -306,7 +301,7 @@ begin
         Result.Add(aux.IMAGE_CARD_LOCATION);
 
         if (aux2.VALUE = 0) then
-          Result.Add(GetImageAssemblyStack(aux2.STACK_ID))
+          Result.Add(GetImageAssemblyStack(aux2.STACK_TYPE))
         else
           Result.Add(aux2.IMAGE_CARD_LOCATION);
 
@@ -316,14 +311,14 @@ begin
   end;
 
   //discard for stack
-  aux:= GetStack(8).CARD;
+  aux:= GetStack(tstDiscard).CARD;
 
   while (aux.NEXT_CARD <> nil) do
     aux:= aux.NEXT_CARD;
 
   for J := 0 to 6 do
   begin
-    aux2:= GetStack(J).CARD;
+    aux2:= GetStack(TStackType(J)).CARD;
     while (aux2.NEXT_CARD <> nil ) do
       aux2:= aux2.NEXT_CARD;
 
@@ -345,12 +340,12 @@ begin
   end;
 end;
 
-class function TControllerStacks.GetTotalCardsStack(AStackID: integer): Integer;
+class function TControllerStacks.GetTotalCardsStack(AStackType: TStackType): Integer;
 var
   aux: TCard;
 begin
   Result:= 0;
-  aux:= GetStack(AStackID).CARD;
+  aux:= GetStack(AStackType).CARD;
 
   while not (aux.NEXT_CARD = nil) do
   begin

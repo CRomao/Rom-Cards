@@ -1,5 +1,4 @@
 program Rom_Cards;
-
 uses
   System.StartUpCopy,
   FMX.Forms,
@@ -18,10 +17,11 @@ uses
   View.HowToPlay in 'src\view\View.HowToPlay.pas' {ViewHowToPlay: TFrame},
   View.Ranking in 'src\view\View.Ranking.pas' {ViewRanking: TFrame},
   View.PauseGame in 'src\view\View.PauseGame.pas' {ViewPauseGame: TFrame},
-  View.HelperPenalty in 'src\view\View.HelperPenalty.pas' {ViewHelperPenalty: TFrame};
+  View.HelperPenalty in 'src\view\View.HelperPenalty.pas' {ViewHelperPenalty: TFrame},
+  Controller.Movement in 'src\controller\Controller.Movement.pas',
+  Model.Movement in 'src\model\Model.Movement.pas';
 
 {$R *.res}
-
 begin
   Application.Initialize;
   ReportMemoryLeaksOnShutdown:= True;
