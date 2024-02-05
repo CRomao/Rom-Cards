@@ -21,24 +21,24 @@ type
                 tstStack7, tstStock, tstDiscard, tstAssemblyHeart, tstAssemblyDiamond,
                 tstAssemblyClub, tstAssemblySpade);
 
-  TCard = class(TImage)
+  TModelCard = class(TImage)
     private
     FVALUE: Integer;
     FSUIT_CARD: TSuitCard;
     FVISIBLE: Boolean;
     FCOLOR: TColorCard;
-    FPREVIOUS_CARD: TCard;
-    FNEXT_CARD: TCard;
+    FPREVIOUS_CARD: TModelCard;
+    FNEXT_CARD: TModelCard;
     FIMAGE_CARD_LOCATION: string;
     FIMAGE_CARD_DEFAULT_LOCATION: string;
     FSTACK_TYPE: TStackType;
-    function MoveStackForStack(ACardMove, ACardReceive:TCard): Boolean;
-    function MoveStackForAssembly(ACardMove, ACardReceive: TCard): Boolean;
-    function MoveStockForDiscard(ACardMove, ACardReceive: TCard): Boolean;
-    function DiscardForStack(ACardMove, ACardReceive: TCard): Boolean;
-    function DiscardForAssembly(ACardMove, ACardReceive: TCard): Boolean;
+    function MoveStackForStack(ACardMove, ACardReceive:TModelCard): Boolean;
+    function MoveStackForAssembly(ACardMove, ACardReceive: TModelCard): Boolean;
+    function MoveStockForDiscard(ACardMove, ACardReceive: TModelCard): Boolean;
+    function DiscardForStack(ACardMove, ACardReceive: TModelCard): Boolean;
+    function DiscardForAssembly(ACardMove, ACardReceive: TModelCard): Boolean;
     procedure RegisterNewMovement(APreviousCardVisible: Boolean; ACardMove,
-      ACardReceive: TCard);
+      ACardReceive: TModelCard);
 
   protected
     procedure OnDragOverCard(Sender: TObject; const Data: TDragObject;
@@ -50,8 +50,8 @@ type
       property SUIT_CARD: TSuitCard read FSUIT_CARD write FSUIT_CARD;
       property VISIBLE: Boolean read FVISIBLE write FVISIBLE;
       property COLOR: TColorCard read FCOLOR write FCOLOR;
-      property PREVIOUS_CARD: TCard read FPREVIOUS_CARD write FPREVIOUS_CARD;
-      property NEXT_CARD: TCard read FNEXT_CARD write FNEXT_CARD;
+      property PREVIOUS_CARD: TModelCard read FPREVIOUS_CARD write FPREVIOUS_CARD;
+      property NEXT_CARD: TModelCard read FNEXT_CARD write FNEXT_CARD;
       property IMAGE_CARD_LOCATION: string read FIMAGE_CARD_LOCATION write FIMAGE_CARD_LOCATION;
       property IMAGE_CARD_DEFAULT_LOCATION: string read FIMAGE_CARD_DEFAULT_LOCATION write FIMAGE_CARD_DEFAULT_LOCATION;
       property STACK_TYPE: TStackType read FSTACK_TYPE write FSTACK_TYPE;
@@ -63,26 +63,26 @@ implementation
 uses
   Controller.Stacks, View.Principal, View.Congratulations, Model.Movement, Controller.Movement;
 
-{ TCard }
+{ TModelCard }
 
-constructor TCard.Create(AOwner: TComponent);
+constructor TModelCard.Create(AOwner: TComponent);
 begin
   inherited;
   Self.OnDragOver:= OnDragOverCard;
   Self.OnDragDrop:= OnDragDropCard;
 end;
 
-procedure TCard.OnDragDropCard(Sender: TObject; const Data: TDragObject;
+procedure TModelCard.OnDragDropCard(Sender: TObject; const Data: TDragObject;
   const Point: TPointF);
 var
-  S, D, aux: TCard;
+  S, D, aux: TModelCard;
   LMoved, LPreviousCardVisible: Boolean;
 begin
   LPreviousCardVisible:= False;
-  if (TCard(Data.Source).FVISIBLE) then
+  if (TModelCard(Data.Source).FVISIBLE) then
   begin
-    S:= TCard(Sender);
-    D:= TCard(Data.Source);
+    S:= TModelCard(Sender);
+    D:= TModelCard(Data.Source);
     LMoved:= False;
 
     {***possibles moves***
@@ -203,7 +203,7 @@ begin
   end;
 end;
 
-function TCard.MoveStackForStack(ACardMove, ACardReceive:TCard): Boolean;
+function TModelCard.MoveStackForStack(ACardMove, ACardReceive: TModelCard): Boolean;
 begin
   Result:= False;
   if (ACardReceive.FVALUE = 0) and (ACardMove.FVALUE = 13) and (ACardReceive.FSUIT_CARD = tscNone) then
@@ -218,7 +218,7 @@ begin
   end;
 end;
 
-function TCard.MoveStackForAssembly(ACardMove, ACardReceive:TCard): Boolean;
+function TModelCard.MoveStackForAssembly(ACardMove, ACardReceive: TModelCard): Boolean;
 begin
   Result:= False;
   if (ACardReceive.FSUIT_CARD = ACardMove.FSUIT_CARD) and ((ACardReceive.FVALUE + 1) = ACardMove.FVALUE) and (ACardReceive.FNEXT_CARD = nil) then
@@ -229,7 +229,7 @@ begin
   end;
 end;
 
-function TCard.MoveStockForDiscard(ACardMove, ACardReceive: TCard): Boolean;
+function TModelCard.MoveStockForDiscard(ACardMove, ACardReceive: TModelCard): Boolean;
 begin
   ACardMove.Padding.Top:= 0;
   ACardReceive.AddObject(ACardMove);
@@ -238,7 +238,7 @@ begin
   Result:= True;
 end;
 
-function TCard.DiscardForStack(ACardMove, ACardReceive: TCard): Boolean;
+function TModelCard.DiscardForStack(ACardMove, ACardReceive: TModelCard): Boolean;
 begin
   Result:= False;
   if (ACardReceive.FVALUE = 0) and (ACardMove.FVALUE = 13) and (ACardReceive.FSUIT_CARD = tscNone) then
@@ -253,7 +253,7 @@ begin
   end;
 end;
 
-function TCard.DiscardForAssembly(ACardMove, ACardReceive: TCard): Boolean;
+function TModelCard.DiscardForAssembly(ACardMove, ACardReceive: TModelCard): Boolean;
 begin
   Result:= False;
   if (ACardReceive.FSUIT_CARD = ACardMove.FSUIT_CARD) and ((ACardReceive.FVALUE + 1) = ACardMove.FVALUE) and (ACardReceive.FNEXT_CARD = nil) then
@@ -264,12 +264,12 @@ begin
   end;
 end;
 
-procedure TCard.RegisterNewMovement(APreviousCardVisible: Boolean; ACardMove, ACardReceive: TCard);
+procedure TModelCard.RegisterNewMovement(APreviousCardVisible: Boolean; ACardMove, ACardReceive: TModelCard);
 var
-  LMovement: TMovement;
+  LMovement: TModelMovement;
 begin
-  LMovement:= TMovement.Create;
-  LMovement.PREVIOUS_MOVEMENT:= TControllerMovement.GeListMovement.Items[Pred(TControllerMovement.GeListMovement.Count)];
+  LMovement:= TModelMovement.Create;
+  LMovement.PREVIOUS_MOVEMENT:= TControllerMovement.GetInstance.Items[Pred(TControllerMovement.GetInstance.Count)];
   LMovement.HEAD_STACK_MOVEMENT:= False;
   LMovement.NEXT_MOVIMENT:= nil;
   LMovement.PREVIOUS_CARD_VISIBLE:= APreviousCardVisible;
@@ -282,7 +282,7 @@ begin
   TControllerMovement.SetLastCardMoved(ACardMove);
 end;
 
-procedure TCard.OnDragOverCard(Sender: TObject; const Data: TDragObject;
+procedure TModelCard.OnDragOverCard(Sender: TObject; const Data: TDragObject;
   const Point: TPointF; var Operation: TDragOperation);
 begin
   if Self.FVISIBLE then

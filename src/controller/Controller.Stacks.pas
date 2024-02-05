@@ -14,18 +14,18 @@ type
 
   TControllerStacks = class
     private
-      class var FListStack: TList<TStack>;
+      class var FListStack: TList<TModelStack>;
       class function GetImageAssemblyStack(AStackType: TStackType): string;
     public
-      class function GetListStack: TList<TStack>;
+      class function GetInstance: TList<TModelStack>;
       class procedure InitializeHeadStack;
-      class procedure InitialDistribution(ACards: TList<TCard>);
-      class procedure InitialStockDistribution(ACards: TList<TCard>);
-      class function GetStack(AStackType: TStackType): TStack;
+      class procedure InitialDistribution(ACards: TList<TModelCard>);
+      class procedure InitialStockDistribution(ACards: TList<TModelCard>);
+      class function GetStack(AStackType: TStackType): TModelStack;
       class procedure PrintCards;
       class procedure CleanMemory;
       class function GetTotalCardsStack(AStackType: TStackType): Integer;
-      class function GetLastCardStack(AStackType: TStackType): TCard;
+      class function GetLastCardStack(AStackType: TStackType): TModelCard;
       class function FinishedGame: Boolean;
       class function GetTip: TList<string>;
   end;
@@ -37,14 +37,14 @@ implementation
 class procedure TControllerStacks.InitializeHeadStack;
 var
   I, J: integer;
-  LStack: TStack;
+  LStack: TModelStack;
 begin
   J:= 0;
 
   for I:= 0 to 12 do
   begin
-    LStack:= TStack.Create;
-    LStack.CARD:= TCard.Create(nil);
+    LStack:= TModelStack.Create;
+    LStack.CARD:= TModelCard.Create(nil);
     LStack.CARD.COLOR:= tccNone;
     LStack.CARD.STACK_TYPE:= TStackType(I);
 
@@ -62,14 +62,14 @@ begin
     LStack.CARD.PREVIOUS_CARD:= nil;
     LStack.CARD.NEXT_CARD:= nil;
     LStack.CARD.VALUE:= 0;
-    GetListStack.Add(LStack);
+    GetInstance.Add(LStack);
   end;
 end;
 
-class procedure TControllerStacks.initialDistribution(ACards: TList<TCard>);
+class procedure TControllerStacks.initialDistribution(ACards: TList<TModelCard>);
 var
   tam, i, lim, j, cont: integer;
-  aux, aux2: TCard;
+  aux, aux2: TModelCard;
 begin
   tam:= 51;
   lim:= 6;
@@ -78,7 +78,7 @@ begin
 
   for i:=0 to lim do
   begin
-    aux:= GetListStack.Items[i].CARD;
+    aux:= GetInstance.Items[i].CARD;
     while (j < cont) do
     begin
       aux2 := aux;
@@ -98,12 +98,12 @@ begin
   end;
 end;
 
-class procedure TControllerStacks.InitialStockDistribution(ACards: TList<TCard>);
+class procedure TControllerStacks.InitialStockDistribution(ACards: TList<TModelCard>);
 var
   i: integer;
-  auxEstoque: TCard;
+  auxEstoque: TModelCard;
 begin
-  auxEstoque:= GetListStack.Items[7].CARD;
+  auxEstoque:= GetInstance.Items[Ord(tstStock)].CARD;
   for i := 0 to 23 do
   begin
     //alterações nas cartas do estoque
@@ -121,14 +121,14 @@ end;
 
 class procedure TControllerStacks.PrintCards;
 var
-  aux: TCard;
+  aux: TModelCard;
   lim, i: integer;
 begin
   lim:= 6;
 
   for i := 0 to lim do
   begin
-    aux:= GetListStack.Items[i].CARD.NEXT_CARD;
+    aux:= GetInstance.Items[i].CARD.NEXT_CARD;
     if not (aux = nil) then
     begin
       while not (aux = nil) do
@@ -146,10 +146,10 @@ class procedure TControllerStacks.CleanMemory;
 var
   I: integer;
 begin
-  for I := 0 to Pred(GetListStack.Count) do
-    GetListStack.Items[I].Free;
+  for I := 0 to Pred(GetInstance.Count) do
+    GetInstance.Items[I].Free;
 
-  GetListStack.Free;
+  GetInstance.Free;
   FListStack:= nil;
 end;
 
@@ -176,7 +176,7 @@ begin
   end;
 end;
 
-class function TControllerStacks.GetLastCardStack(AStackType: TStackType): TCard;
+class function TControllerStacks.GetLastCardStack(AStackType: TStackType): TModelCard;
 begin
   Result:= GetStack(AStackType).CARD;
 
@@ -184,23 +184,23 @@ begin
     Result:= Result.NEXT_CARD;
 end;
 
-class function TControllerStacks.GetListStack: TList<TStack>;
+class function TControllerStacks.GetInstance: TList<TModelStack>;
 begin
   if (FListStack = nil) then
-    FListStack:= TList<TStack>.Create;
+    FListStack:= TList<TModelStack>.Create;
 
   Result:= FListStack;
 end;
 
-class function TControllerStacks.GetStack(AStackType: TStackType): TStack;
+class function TControllerStacks.GetStack(AStackType: TStackType): TModelStack;
 begin
-  Result:= GetListStack.Items[Ord(AStackType)];
+  Result:= GetInstance.Items[Ord(AStackType)];
 end;
 
 class function TControllerStacks.GetTip: TList<string>;
 var
   I, J: integer;
-  aux, aux2: TCard;
+  aux, aux2: TModelCard;
   //aux = carta que vai ser movida
   //aux2 = carta que vai receber a carta movida
 begin
@@ -342,7 +342,7 @@ end;
 
 class function TControllerStacks.GetTotalCardsStack(AStackType: TStackType): Integer;
 var
-  aux: TCard;
+  aux: TModelCard;
 begin
   Result:= 0;
   aux:= GetStack(AStackType).CARD;

@@ -238,11 +238,11 @@ end;
 
 procedure TViewPrincipal.UndoMovement;
 var
-  LLastCardMoved, aux: TCard;
-  LLastMovement: TMovement;
+  LLastCardMoved, aux: TModelCard;
+  LLastMovement: TModelMovement;
   LAnimationX, LAnimationY: TFloatAnimation;
 begin
-  if (TControllerMovement.GeListMovement.Count > 1) then
+  if (TControllerMovement.GetInstance.Count > 1) then
   begin
     Inc(FNumberOfMovementsUndone);
     imgUndo.Enabled:= False;
@@ -251,8 +251,8 @@ begin
     begin
       try
         ReporEstoque(tstStock, tstDiscard, True);
-        TControllerMovement.GeListMovement.Items[Pred(TControllerMovement.GeListMovement.Count)].DisposeOf;
-        TControllerMovement.GeListMovement.Delete(Pred(TControllerMovement.GeListMovement.Count));
+        TControllerMovement.GetInstance.Items[Pred(TControllerMovement.GetInstance.Count)].DisposeOf;
+        TControllerMovement.GetInstance.Delete(Pred(TControllerMovement.GetInstance.Count));
       finally
         imgUndo.Enabled:= True;
         FUndoInProcess:= False;
@@ -444,8 +444,8 @@ begin
     end;
    {teste}
 
-    TControllerMovement.GeListMovement.Items[Pred(TControllerMovement.GeListMovement.Count)].DisposeOf;
-    TControllerMovement.GeListMovement.Delete(Pred(TControllerMovement.GeListMovement.Count));
+    TControllerMovement.GetInstance.Items[Pred(TControllerMovement.GetInstance.Count)].DisposeOf;
+    TControllerMovement.GetInstance.Delete(Pred(TControllerMovement.GetInstance.Count));
 
     TControllerMovement.SetLastCardMoved(TControllerMovement.GetLastMovement.CARD);
   finally
@@ -456,11 +456,11 @@ end;
 
 procedure TViewPrincipal.ReporEstoque(AOriginStackType, ADestinyStackType: TStackType; SpecialMovement: Boolean);
 var
-  reporEstoque, estoqueFinal: TCard;
+  reporEstoque, estoqueFinal: TModelCard;
   tam, I: integer;
-  LMovement: TMovement;
+  LMovement: TModelMovement;
 begin
-  if ((TControllerStacks.GetListStack.Items[Ord(ADestinyStackType)].CARD.NEXT_CARD = nil) and not (TControllerStacks.GetListStack.Items[Ord(AOriginStackType)].CARD.NEXT_CARD = nil)) then
+  if ((TControllerStacks.GetInstance.Items[Ord(ADestinyStackType)].CARD.NEXT_CARD = nil) and not (TControllerStacks.GetInstance.Items[Ord(AOriginStackType)].CARD.NEXT_CARD = nil)) then
   begin
     tam:= TControllerStacks.GetTotalCardsStack(AOriginStackType);
 
@@ -486,8 +486,8 @@ begin
 
     if not SpecialMovement then
     begin
-      LMovement:= TMovement.Create;
-      LMovement.PREVIOUS_MOVEMENT:= TControllerMovement.GeListMovement.Items[Pred(TControllerMovement.GeListMovement.Count)];
+      LMovement:= TModelMovement.Create;
+      LMovement.PREVIOUS_MOVEMENT:= TControllerMovement.GetInstance.Items[Pred(TControllerMovement.GetInstance.Count)];
       LMovement.HEAD_STACK_MOVEMENT:= False;
       LMovement.NEXT_MOVIMENT:= nil;
       LMovement.PREVIOUS_CARD_VISIBLE:= false;

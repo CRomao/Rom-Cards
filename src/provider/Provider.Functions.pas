@@ -26,17 +26,17 @@ begin
 
   //stacks
   TControllerStacks.InitializeHeadStack;
-  TControllerStacks.InitialDistribution(TControllerCards.GetListCard);
-  TControllerStacks.InitialStockDistribution(TControllerCards.GetListCard);
+  TControllerStacks.InitialDistribution(TControllerCards.GetInstance);
+  TControllerStacks.InitialStockDistribution(TControllerCards.GetInstance);
   TControllerStacks.PrintCards;
 end;
 
 procedure SplitCardsToStack(Sender: TOBject; AIndexStack: integer);
 begin
   if (Sender is TRectangle) then
-  TRectangle(Sender).AddObject(TControllerStacks.GetListStack.Items[AIndexStack].CARD)
+  TRectangle(Sender).AddObject(TControllerStacks.GetInstance.Items[AIndexStack].CARD)
   else
-    TImage(Sender).AddObject(TControllerStacks.GetListStack.Items[AIndexStack].CARD);
+    TImage(Sender).AddObject(TControllerStacks.GetInstance.Items[AIndexStack].CARD);
 end;
 
 end.

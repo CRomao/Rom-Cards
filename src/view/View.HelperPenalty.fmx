@@ -147,8 +147,8 @@ object ViewHelperPenalty: TViewHelperPenalty
             Size.PlatformDefault = False
             TextSettings.Font.StyleExt = {00070000000000000004000000}
             Text = 
-              '2'#186' Para cada dica solicitada, ser'#225' acrescentado 4 segundos a mai' +
-              's no tempo final.'
+              '2'#186' Para cada dica fornecida, ser'#225' acrescentado 4 segundos a mais' +
+              ' no tempo final.'
             TabOrder = 1
           end
         end

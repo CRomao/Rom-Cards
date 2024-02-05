@@ -10,9 +10,9 @@ uses
 type
   TControllerCards = class
     private
-      class var FListCards: TList<TCard>;
+      class var FListCards: TList<TModelCard>;
     public
-      class function GetListCard: TList<TCard>;
+      class function GetInstance: TList<TModelCard>;
       class procedure InitializeCards;
       class procedure ShuffleCards;
       class procedure CleanMemory;
@@ -25,7 +25,7 @@ implementation
 class procedure TControllerCards.InitializeCards;
 var
   LImagerCardLocation: array of string;
-  LCard: TCard;
+  LCard: TModelCard;
   I, J: Integer;
 begin
   SetLength(LImagerCardLocation, 5);
@@ -39,7 +39,7 @@ begin
   begin
     for J := 0 to 12 do
     begin
-      LCard:= TCard.Create(nil);
+      LCard:= TModelCard.Create(nil);
 
       LCard.PREVIOUS_CARD:= nil;
       LCard.NEXT_CARD:= nil;
@@ -57,7 +57,7 @@ begin
       LCard.Padding.Top:= 23;
       LCard.Cursor:= crHandPoint;
 
-      GetListCard.Add(Lcard);
+      GetInstance.Add(Lcard);
     end;
   end;
 end;
@@ -65,30 +65,30 @@ end;
 class procedure TControllerCards.ShuffleCards;
 var
   LNewPosition, I: integer;
-  LCurrentCard: TCard;
+  LCurrentCard: TModelCard;
 begin
   Randomize;
 
   for I := 0 to 51 do
   begin
     LNewPosition:= Round(random(51));
-    LCurrentCard:= GetListCard.Items[I];
-    GetListCard.Items[I]:= GetListCard.Items[LNewPosition];
-    GetListCard.Items[LNewPosition]:= LCurrentCard;
+    LCurrentCard:= GetInstance.Items[I];
+    GetInstance.Items[I]:= GetInstance.Items[LNewPosition];
+    GetInstance.Items[LNewPosition]:= LCurrentCard;
   end;
 end;
 
-class function TControllerCards.GetListCard: TList<TCard>;
+class function TControllerCards.GetInstance: TList<TModelCard>;
 begin
   if (FListCards = nil) then
-    FListCards:= TList<TCard>.Create;
+    FListCards:= TList<TModelCard>.Create;
 
   Result:= FListCards;
 end;
 
 class procedure TControllerCards.CleanMemory;
 begin
-  GetListCard.Free;
+  GetInstance.Free;
   FListCards:= nil;
 end;
 

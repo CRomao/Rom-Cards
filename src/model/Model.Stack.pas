@@ -6,11 +6,11 @@ uses
   Model.Card;
 
 type
-  TStack = class
+  TModelStack = class
     private
-      FCARD: TCard;
+      FCARD: TModelCard;
     public
-      property CARD: TCard read FCARD write FCARD;
+      property CARD: TModelCard read FCARD write FCARD;
   end;
 
 implementation

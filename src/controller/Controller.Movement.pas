@@ -9,15 +9,15 @@ type
 
   TControllerMovement = class
     private
-      class var FListMovement: TList<TMovement>;
-      class var FLastCardMoved: Tcard;
+      class var FListMovement: TList<TModelMovement>;
+      class var FLastCardMoved: TModelCard;
     public
-      class function GeListMovement: TList<TMovement>;
-      class procedure SetMovement(AMovement: TMovement);
+      class function GetInstance: TList<TModelMovement>;
+      class procedure SetMovement(AMovement: TModelMovement);
       class procedure CleanMemory;
-      class procedure SetLastCardMoved(ACard: TCard);
-      class function GetLastCardMoved: TCard;
-      class function GetLastMovement: TMovement;
+      class procedure SetLastCardMoved(ACard: TModelCard);
+      class function GetLastCardMoved: TModelCard;
+      class function GetLastMovement: TModelMovement;
   end;
 
 implementation
@@ -28,19 +28,19 @@ class procedure TControllerMovement.CleanMemory;
 var
   I: integer;
 begin
-  for I := 0 to Pred(GeListMovement.Count) do
-    GeListMovement.Items[I].Free;
-  GeListMovement.Free;
+  for I := 0 to Pred(GetInstance.Count) do
+    GetInstance.Items[I].Free;
+  GetInstance.Free;
   FListMovement:= nil;
 end;
-class function TControllerMovement.GeListMovement: TList<TMovement>;
+class function TControllerMovement.GetInstance: TList<TModelMovement>;
 var
-  LMovement: TMovement;
+  LMovement: TModelMovement;
 begin
   if (FListMovement = nil) then
   begin
-    FListMovement:= TList<TMovement>.Create;
-    LMovement:= TMovement.Create;
+    FListMovement:= TList<TModelMovement>.Create;
+    LMovement:= TModelMovement.Create;
     LMovement.NEXT_MOVIMENT:= nil;
     LMovement.PREVIOUS_MOVEMENT:= nil;
     LMovement.CARD:= nil;
@@ -50,19 +50,19 @@ begin
   end;
   Result:= FListMovement;
 end;
-class function TControllerMovement.GetLastCardMoved: TCard;
+class function TControllerMovement.GetLastCardMoved: TModelCard;
 begin
   Result:= FLastCardMoved;
 end;
-class function TControllerMovement.GetLastMovement: TMovement;
+class function TControllerMovement.GetLastMovement: TModelMovement;
 begin
-  Result:= GeListMovement.Last;
+  Result:= GetInstance.Last;
 end;
-class procedure TControllerMovement.SetLastCardMoved(ACard: TCard);
+class procedure TControllerMovement.SetLastCardMoved(ACard: TModelCard);
 begin
   FLastCardMoved:= ACard;
 end;
-class procedure TControllerMovement.SetMovement(AMovement: TMovement);
+class procedure TControllerMovement.SetMovement(AMovement: TModelMovement);
 begin
   FListMovement.Add(AMovement);
 end;
