@@ -159,7 +159,7 @@ var
 begin
   TotalCardsAssembly:= 0;
 
-  for I := 9 to 12 do
+  for I := Ord(tstAssemblyHeart) to Ord(tstAssemblySpade) do
     TotalCardsAssembly:= TotalCardsAssembly + GetTotalCardsStack(TStackType(I));
 
   Result:= TotalCardsAssembly = 52;
@@ -206,7 +206,7 @@ var
 begin
   Result:= TList<string>.Create;
 
-  for I := 0 to 6 do   //stack for stack
+  for I := Ord(tstStack1) to Ord(tstStack7) do   //stack for stack
   begin
     aux:= GetStack(TStackType(I)).CARD;
 
@@ -251,14 +251,14 @@ begin
     end;
   end;
 
-  for I := 0 to 6 do   //stack for assembly
+  for I := Ord(tstStack1) to Ord(tstStack7) do   //stack for assembly
   begin
     aux:= GetStack(TStackType(I)).CARD;
 
     while (aux.NEXT_CARD <> nil) do
       aux:= aux.NEXT_CARD;
 
-    for J := 9 to 12 do
+    for J := Ord(tstAssemblyHeart) to Ord(tstAssemblySpade) do
     begin
       aux2:= GetStack(TStackType(J)).CARD;
       while (aux2.NEXT_CARD <> nil ) do
@@ -288,7 +288,7 @@ begin
     aux:= aux.NEXT_CARD;
 
 
-  for J := 9 to 12 do
+  for J := Ord(tstAssemblyHeart) to Ord(tstAssemblySpade) do
   begin
     aux2:= GetStack(TStackType(J)).CARD;
     while (aux2.NEXT_CARD <> nil ) do
@@ -316,7 +316,7 @@ begin
   while (aux.NEXT_CARD <> nil) do
     aux:= aux.NEXT_CARD;
 
-  for J := 0 to 6 do
+  for J := Ord(tstStack1) to Ord(tstStack7) do
   begin
     aux2:= GetStack(TStackType(J)).CARD;
     while (aux2.NEXT_CARD <> nil ) do
