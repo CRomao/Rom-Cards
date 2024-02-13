@@ -2,3 +2,5 @@ __history/
 __recovery/
 dcu/
 Win32/
+*.dproj.local
+*.identcache
