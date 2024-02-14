@@ -75,14 +75,14 @@ end;
 procedure TModelCard.OnDragDropCard(Sender: TObject; const Data: TDragObject;
   const Point: TPointF);
 var
-  S, D, aux: TModelCard;
+  LCardReceive, LCardMove, aux: TModelCard;
   LMoved, LPreviousCardVisible: Boolean;
 begin
   LPreviousCardVisible:= False;
   if (TModelCard(Data.Source).FVISIBLE) then
   begin
-    S:= TModelCard(Sender);
-    D:= TModelCard(Data.Source);
+    LCardReceive:= TModelCard(Sender);
+    LCardMove:= TModelCard(Data.Source);
     LMoved:= False;
 
     {***possibles moves***
@@ -95,90 +95,90 @@ begin
     }
 
     {1-stack for stack}
-    if (D.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) and
-       (S.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) then
+    if (LCardMove.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) and
+       (LCardReceive.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) then
     begin
-      if MoveStackForStack(D, S) then
+      if MoveStackForStack(LCardMove, LCardReceive) then
       begin
         LMoved:= True;
-        LPreviousCardVisible:= D.FPREVIOUS_CARD.FVISIBLE;
-        if (D.FPREVIOUS_CARD.FVALUE <> 0) then
+        LPreviousCardVisible:= LCardMove.FPREVIOUS_CARD.FVISIBLE;
+        if (LCardMove.FPREVIOUS_CARD.FVALUE <> 0) then
         begin
-          D.FPREVIOUS_CARD.Bitmap.LoadFromFile(D.FPREVIOUS_CARD.FIMAGE_CARD_LOCATION);
-          D.FPREVIOUS_CARD.FVISIBLE:= True;
+          LCardMove.FPREVIOUS_CARD.Bitmap.LoadFromFile(LCardMove.FPREVIOUS_CARD.FIMAGE_CARD_LOCATION);
+          LCardMove.FPREVIOUS_CARD.FVISIBLE:= True;
         end;
       end;
     end
     else {2-stack for assembly}
-    if (D.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) and
-       (S.STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) then
+    if (LCardMove.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) and
+       (LCardReceive.STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) then
     begin
-      if MoveStackForAssembly(D, S) then
+      if MoveStackForAssembly(LCardMove, LCardReceive) then
       begin
         LMoved:= True;
-        if (D.FPREVIOUS_CARD.FVALUE <> 0) then
+        if (LCardMove.FPREVIOUS_CARD.FVALUE <> 0) then
         begin
-          D.FPREVIOUS_CARD.Bitmap.LoadFromFile(D.FPREVIOUS_CARD.FIMAGE_CARD_LOCATION);
-          LPreviousCardVisible:= D.FPREVIOUS_CARD.FVISIBLE;
-          D.FPREVIOUS_CARD.FVISIBLE:= True;
+          LCardMove.FPREVIOUS_CARD.Bitmap.LoadFromFile(LCardMove.FPREVIOUS_CARD.FIMAGE_CARD_LOCATION);
+          LPreviousCardVisible:= LCardMove.FPREVIOUS_CARD.FVISIBLE;
+          LCardMove.FPREVIOUS_CARD.FVISIBLE:= True;
         end;
       end;
     end
     else {3-stock for discard}
-    if (D.STACK_TYPE = tstStock) and (S.STACK_TYPE = tstDiscard) then
+    if (LCardMove.STACK_TYPE = tstStock) and (LCardReceive.STACK_TYPE = tstDiscard) then
     begin
-      if MoveStockForDiscard(D, S) then
+      if MoveStockForDiscard(LCardMove, LCardReceive) then
       begin
         LMoved:= True;
         LPreviousCardVisible:= True;
       end;
     end
     else {4-discard for stack}
-    if (D.STACK_TYPE = tstDiscard) and
-       (S.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) then
+    if (LCardMove.STACK_TYPE = tstDiscard) and
+       (LCardReceive.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) then
     begin
-      if DiscardForStack(D, S) then
+      if DiscardForStack(LCardMove, LCardReceive) then
       begin
         LMoved:= True;
         LPreviousCardVisible:= True;
       end;
     end
     else {5-discard for assembly}
-    if (D.STACK_TYPE = tstDiscard) and (S.STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) then
+    if (LCardMove.STACK_TYPE = tstDiscard) and (LCardReceive.STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) then
     begin
-      if DiscardForAssembly(D, S) then
+      if DiscardForAssembly(LCardMove, LCardReceive) then
       begin
         LMoved:= True;
         LPreviousCardVisible:= True;
       end;
     end
     else {6-assembly for stack}
-    if (D.STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) and
-       (S.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) then
+    if (LCardMove.STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) and
+       (LCardReceive.STACK_TYPE in [tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6, tstStack7]) then
     begin
-      if MoveStackForStack(D, S) then
+      if MoveStackForStack(LCardMove, LCardReceive) then
       begin
         LMoved:= True;
-        LPreviousCardVisible:= D.FPREVIOUS_CARD.FVISIBLE;
-        if (D.FPREVIOUS_CARD.FVALUE <> 0) then
+        LPreviousCardVisible:= LCardMove.FPREVIOUS_CARD.FVISIBLE;
+        if (LCardMove.FPREVIOUS_CARD.FVALUE <> 0) then
         begin
-          D.FPREVIOUS_CARD.Bitmap.LoadFromFile(D.FPREVIOUS_CARD.FIMAGE_CARD_LOCATION);
-          D.FPREVIOUS_CARD.FVISIBLE:= True;
+          LCardMove.FPREVIOUS_CARD.Bitmap.LoadFromFile(LCardMove.FPREVIOUS_CARD.FIMAGE_CARD_LOCATION);
+          LCardMove.FPREVIOUS_CARD.FVISIBLE:= True;
         end;
       end;
     end;
 
     if LMoved then
     begin
-      RegisterNewMovement(LPreviousCardVisible, D, S);
+      RegisterNewMovement(LPreviousCardVisible, LCardMove, LCardReceive);
 
       //prepare the previous and next
-      D.FPREVIOUS_CARD.NEXT_CARD:= nil;
-      D.FPREVIOUS_CARD:= nil;
-      S.NEXT_CARD:= D;
-      D.FPREVIOUS_CARD:= S;
+      LCardMove.FPREVIOUS_CARD.NEXT_CARD:= nil;
+      LCardMove.FPREVIOUS_CARD:= nil;
+      LCardReceive.NEXT_CARD:= LCardMove;
+      LCardMove.FPREVIOUS_CARD:= LCardReceive;
 
-      if (S.STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) then
+      if (LCardReceive.STACK_TYPE in [tstAssemblyHeart, tstAssemblyDiamond, tstAssemblyClub, tstAssemblySpade]) then
       begin
         if TControllerStacks.FinishedGame then
         begin
@@ -193,10 +193,10 @@ begin
       end;
 
       //ajustar o stack_type das cartas que estão juntas da carta que o usuário está movendo;
-      aux:= D;
+      aux:= LCardMove;
       while (aux <> nil) do
       begin
-        aux.STACK_TYPE:= S.STACK_TYPE;
+        aux.STACK_TYPE:= LCardReceive.STACK_TYPE;
         aux:= aux.NEXT_CARD;
       end;
     end;
