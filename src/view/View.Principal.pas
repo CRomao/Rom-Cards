@@ -6,8 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Layouts, FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls,
-  FMX.Effects, FMX.Ani,System.Generics.Collections,Controller.Cards,
-  Model.Card, Model.Stack, Controller.Stacks, FMX.Memo.Types, FMX.ScrollBox,
+  FMX.Effects, FMX.Ani,System.Generics.Collections,Controller.Card,
+  Model.Card, Model.Stack, Controller.Stack, FMX.Memo.Types, FMX.ScrollBox,
   FMX.Memo, View.MenuPrincipal, FMX.Platform.Win, WinAPI.Windows;
 
 type

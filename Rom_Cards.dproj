@@ -205,8 +205,8 @@
         </DCCReference>
         <DCCReference Include="src\model\Model.Card.pas"/>
         <DCCReference Include="src\model\Model.Stack.pas"/>
-        <DCCReference Include="src\controller\Controller.Cards.pas"/>
-        <DCCReference Include="src\controller\Controller.Stacks.pas"/>
+        <DCCReference Include="src\controller\Controller.Card.pas"/>
+        <DCCReference Include="src\controller\Controller.Stack.pas"/>
         <DCCReference Include="src\view\View.MenuPrincipal.pas">
             <Form>ViewMenuPrincipal</Form>
             <FormType>fmx</FormType>

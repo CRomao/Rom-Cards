@@ -37,7 +37,7 @@ class function TControllerMovement.GetInstance: TList<TModelMovement>;
 var
   LMovement: TModelMovement;
 begin
-  if (FListMovement = nil) then
+  if not Assigned(FListMovement) then
   begin
     FListMovement:= TList<TModelMovement>.Create;
     LMovement:= TModelMovement.Create;

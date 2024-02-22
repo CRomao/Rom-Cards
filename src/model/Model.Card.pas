@@ -15,6 +15,9 @@ uses
 type
   TSuitCard = (tscHeart, tscDiamond, tscClub, tscSpade, tscNone);
 
+  TValueCard = (tvcNone, tvcOne, tvcTwo, tvcThree, tvcFour, tvcFive, tvcSix, tvcSeven,
+                tvcEight, tvcNine, tvcTen, tvcJokey, tvcQueen, tvcKing);
+
   TColorCard = (tccRed, tccBlack, tccNone);
 
   TStackType = (tstStack1, tstStack2, tstStack3, tstStack4, tstStack5, tstStack6,
@@ -61,7 +64,7 @@ type
 implementation
 
 uses
-  Controller.Stacks, View.Principal, View.Congratulations, Model.Movement, Controller.Movement;
+  Controller.Stack, View.Principal, View.Congratulations, Model.Movement, Controller.Movement;
 
 { TModelCard }
 
@@ -194,7 +197,7 @@ begin
 
       //ajustar o stack_type das cartas que estão juntas da carta que o usuário está movendo;
       aux:= LCardMove;
-      while (aux <> nil) do
+      while Assigned(aux) do
       begin
         aux.STACK_TYPE:= LCardReceive.STACK_TYPE;
         aux:= aux.NEXT_CARD;

@@ -1,4 +1,4 @@
-unit Controller.Cards;
+unit Controller.Card;
 
 interface
 
@@ -80,7 +80,7 @@ end;
 
 class function TControllerCards.GetInstance: TList<TModelCard>;
 begin
-  if (FListCards = nil) then
+  if not Assigned(FListCards) then
     FListCards:= TList<TModelCard>.Create;
 
   Result:= FListCards;

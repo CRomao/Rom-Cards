@@ -1,4 +1,4 @@
-unit Controller.Stacks;
+unit Controller.Stack;
 
 interface
 
@@ -41,14 +41,14 @@ var
 begin
   J:= 0;
 
-  for I:= 0 to 12 do
+  for I:= Ord(tstStack1) to Ord(tstAssemblySpade) do
   begin
     LStack:= TModelStack.Create;
     LStack.CARD:= TModelCard.Create(nil);
     LStack.CARD.COLOR:= tccNone;
     LStack.CARD.STACK_TYPE:= TStackType(I);
 
-    if (I >= 9) then //define the suit of head assembly for receive the cards
+    if (I >= Ord(tstAssemblyHeart)) then //define the suit of head assembly for receive the cards
     begin
       LStack.CARD.SUIT_CARD:= TSuitCard(J);
       Inc(J);
@@ -129,15 +129,12 @@ begin
   for i := 0 to lim do
   begin
     aux:= GetInstance.Items[i].CARD.NEXT_CARD;
-    if not (aux = nil) then
+    while Assigned(aux) do
     begin
-      while not (aux = nil) do
-      begin
-        if not aux.VISIBLE then
-          aux.Bitmap.LoadFromFile(aux.IMAGE_CARD_DEFAULT_LOCATION);
+      if not aux.VISIBLE then
+        aux.Bitmap.LoadFromFile(aux.IMAGE_CARD_DEFAULT_LOCATION);
 
-        aux:= aux.NEXT_CARD;
-      end;
+      aux:= aux.NEXT_CARD;
     end;
   end;
 end;
@@ -180,13 +177,13 @@ class function TControllerStacks.GetLastCardStack(AStackType: TStackType): TMode
 begin
   Result:= GetStack(AStackType).CARD;
 
-  while (Result.NEXT_CARD <> nil) do
+  while Assigned(Result.NEXT_CARD) do
     Result:= Result.NEXT_CARD;
 end;
 
 class function TControllerStacks.GetInstance: TList<TModelStack>;
 begin
-  if (FListStack = nil) then
+  if not Assigned(FListStack) then
     FListStack:= TList<TModelStack>.Create;
 
   Result:= FListStack;
@@ -210,7 +207,7 @@ begin
   begin
     aux:= GetStack(TStackType(I)).CARD;
 
-    while (aux.NEXT_CARD <> nil) do
+    while Assigned(aux.NEXT_CARD) do
     begin
       aux:= aux.NEXT_CARD;
 
@@ -225,10 +222,10 @@ begin
     while((J <> I) and (J<7)) do
     begin
       aux2:= GetStack(TStackType(J)).CARD;
-      while (aux2.NEXT_CARD <> nil ) do
+      while Assigned(aux2.NEXT_CARD) do
         aux2:= aux2.NEXT_CARD;
 
-      if (aux <> nil) and (aux2 <> nil) then
+      if Assigned(aux) and Assigned(aux2) then
       begin
         if ((aux.COLOR <> aux2.COLOR) and ((aux.VALUE + 1) =  aux2.VALUE) and (aux.VALUE <> 13) and (aux.VALUE > 0)) then
         begin
@@ -255,16 +252,16 @@ begin
   begin
     aux:= GetStack(TStackType(I)).CARD;
 
-    while (aux.NEXT_CARD <> nil) do
+    while Assigned(aux.NEXT_CARD) do
       aux:= aux.NEXT_CARD;
 
     for J := Ord(tstAssemblyHeart) to Ord(tstAssemblySpade) do
     begin
       aux2:= GetStack(TStackType(J)).CARD;
-      while (aux2.NEXT_CARD <> nil ) do
+      while Assigned(aux2.NEXT_CARD) do
         aux2:= aux2.NEXT_CARD;
 
-      if (aux <> nil) and (aux2 <> nil) then
+      if Assigned(aux) and Assigned(aux2) then
       begin
         if ((aux.SUIT_CARD = aux2.SUIT_CARD) and ((aux.VALUE - 1) =  aux2.VALUE) and (aux.VALUE > 0)) then
         begin
@@ -284,17 +281,16 @@ begin
   //discard for assembly
   aux:= GetStack(tstDiscard).CARD;
 
-  while (aux.NEXT_CARD <> nil) do
+  while Assigned(aux.NEXT_CARD) do
     aux:= aux.NEXT_CARD;
-
 
   for J := Ord(tstAssemblyHeart) to Ord(tstAssemblySpade) do
   begin
     aux2:= GetStack(TStackType(J)).CARD;
-    while (aux2.NEXT_CARD <> nil ) do
+    while Assigned(aux2.NEXT_CARD) do
       aux2:= aux2.NEXT_CARD;
 
-    if (aux <> nil) and (aux2 <> nil) then
+    if Assigned(aux) and Assigned(aux2) then
     begin
       if ((aux.SUIT_CARD = aux2.SUIT_CARD) and ((aux.VALUE - 1) =  aux2.VALUE) and (aux.VALUE > 0)) then
       begin
@@ -313,16 +309,16 @@ begin
   //discard for stack
   aux:= GetStack(tstDiscard).CARD;
 
-  while (aux.NEXT_CARD <> nil) do
+  while Assigned(aux.NEXT_CARD) do
     aux:= aux.NEXT_CARD;
 
   for J := Ord(tstStack1) to Ord(tstStack7) do
   begin
     aux2:= GetStack(TStackType(J)).CARD;
-    while (aux2.NEXT_CARD <> nil ) do
+    while Assigned(aux2.NEXT_CARD) do
       aux2:= aux2.NEXT_CARD;
 
-    if (aux <> nil) and (aux2 <> nil) then
+    if Assigned(aux) and Assigned(aux2) then
     begin
       if ((aux.COLOR <> aux2.COLOR) and ((aux.VALUE + 1) =  aux2.VALUE) and (aux.VALUE <> 13) and (aux.VALUE > 0)) then
       begin
@@ -347,7 +343,7 @@ begin
   Result:= 0;
   aux:= GetStack(AStackType).CARD;
 
-  while not (aux.NEXT_CARD = nil) do
+  while Assigned(aux.NEXT_CARD) do
   begin
     Inc(Result);
     aux:= aux.NEXT_CARD;
