@@ -16,6 +16,7 @@ type
     private
       class var FListStack: TList<TModelStack>;
       class function GetImageAssemblyStack(AStackType: TStackType): string;
+      class function FindFirstCardVisible(ACard: TModelCard): TModelCard; static;
     public
       class function GetInstance: TList<TModelStack>;
       class procedure InitializeHeadStack;
@@ -194,26 +195,29 @@ begin
   Result:= GetInstance.Items[Ord(AStackType)];
 end;
 
+class function TControllerStacks.FindFirstCardVisible(ACard: TModelCard): TModelCard;
+begin
+  Result:= ACard;
+
+  while Assigned(Result.NEXT_CARD) do
+  begin
+    Result:= Result.NEXT_CARD;
+
+    if Result.VISIBLE then
+      break;
+  end;
+end;
+
 class function TControllerStacks.GetTip: TList<string>;
 var
   I, J: integer;
-  aux, aux2: TModelCard;
-  //aux = carta que vai ser movida
-  //aux2 = carta que vai receber a carta movida
+  LCardMove, LCardReceive: TModelCard;
 begin
   Result:= TList<string>.Create;
 
   for I := Ord(tstStack1) to Ord(tstStack7) do   //stack for stack
   begin
-    aux:= GetStack(TStackType(I)).CARD;
-
-    while Assigned(aux.NEXT_CARD) do
-    begin
-      aux:= aux.NEXT_CARD;
-
-      if aux.VISIBLE then
-        break;
-    end;
+    LCardMove:= FindFirstCardVisible(GetStack(TStackType(I)).CARD);
 
     J:= 0;
     if (J = I) then
@@ -221,22 +225,20 @@ begin
 
     while((J <> I) and (J<7)) do
     begin
-      aux2:= GetStack(TStackType(J)).CARD;
-      while Assigned(aux2.NEXT_CARD) do
-        aux2:= aux2.NEXT_CARD;
+      LCardReceive:= GetLastCardStack(TStackType(J));
 
-      if Assigned(aux) and Assigned(aux2) then
+      if Assigned(LCardMove) and Assigned(LCardReceive) then
       begin
-        if ((aux.COLOR <> aux2.COLOR) and ((aux.VALUE + 1) =  aux2.VALUE) and (aux.VALUE <> 13) and (aux.VALUE > 0)) then
+        if ((LCardMove.COLOR <> LCardReceive.COLOR) and ((LCardMove.VALUE + 1) =  LCardReceive.VALUE) and (LCardMove.VALUE <> 13) and (LCardMove.VALUE > 0)) then
         begin
-          Result.Add(aux.IMAGE_CARD_LOCATION);
-          Result.Add(aux2.IMAGE_CARD_LOCATION);
+          Result.Add(LCardMove.IMAGE_CARD_LOCATION);
+          Result.Add(LCardReceive.IMAGE_CARD_LOCATION);
           exit;
         end
         else
-        if (aux.VALUE = 13) and (aux2.VALUE = 0) and (aux.PREVIOUS_CARD.VALUE > 0) then
+        if (LCardMove.VALUE = 13) and (LCardReceive.VALUE = 0) and (LCardMove.PREVIOUS_CARD.VALUE > 0) then
         begin
-          Result.Add(aux.IMAGE_CARD_LOCATION);
+          Result.Add(LCardMove.IMAGE_CARD_LOCATION);
           exit;
         end;
       end;
@@ -250,27 +252,22 @@ begin
 
   for I := Ord(tstStack1) to Ord(tstStack7) do   //stack for assembly
   begin
-    aux:= GetStack(TStackType(I)).CARD;
-
-    while Assigned(aux.NEXT_CARD) do
-      aux:= aux.NEXT_CARD;
+    LCardMove:= GetLastCardStack(TStackType(I));
 
     for J := Ord(tstAssemblyHeart) to Ord(tstAssemblySpade) do
     begin
-      aux2:= GetStack(TStackType(J)).CARD;
-      while Assigned(aux2.NEXT_CARD) do
-        aux2:= aux2.NEXT_CARD;
+      LCardReceive:= GetLastCardStack(TStackType(J));
 
-      if Assigned(aux) and Assigned(aux2) then
+      if Assigned(LCardMove) and Assigned(LCardReceive) then
       begin
-        if ((aux.SUIT_CARD = aux2.SUIT_CARD) and ((aux.VALUE - 1) =  aux2.VALUE) and (aux.VALUE > 0)) then
+        if ((LCardMove.SUIT_CARD = LCardReceive.SUIT_CARD) and ((LCardMove.VALUE - 1) =  LCardReceive.VALUE) and (LCardMove.VALUE > 0)) then
         begin
-          Result.Add(aux.IMAGE_CARD_LOCATION);
+          Result.Add(LCardMove.IMAGE_CARD_LOCATION);
 
-          if (aux2.VALUE = 0) then
-            Result.Add(GetImageAssemblyStack(aux2.STACK_TYPE))
+          if (LCardReceive.VALUE = 0) then
+            Result.Add(GetImageAssemblyStack(LCardReceive.STACK_TYPE))
           else
-            Result.Add(aux2.IMAGE_CARD_LOCATION);
+            Result.Add(LCardReceive.IMAGE_CARD_LOCATION);
 
           exit;
         end;
@@ -279,27 +276,22 @@ begin
   end;
 
   //discard for assembly
-  aux:= GetStack(tstDiscard).CARD;
-
-  while Assigned(aux.NEXT_CARD) do
-    aux:= aux.NEXT_CARD;
+  LCardMove:= GetLastCardStack(tstDiscard);
 
   for J := Ord(tstAssemblyHeart) to Ord(tstAssemblySpade) do
   begin
-    aux2:= GetStack(TStackType(J)).CARD;
-    while Assigned(aux2.NEXT_CARD) do
-      aux2:= aux2.NEXT_CARD;
+    LCardReceive:= GetLastCardStack(TStackType(J));
 
-    if Assigned(aux) and Assigned(aux2) then
+    if Assigned(LCardMove) and Assigned(LCardReceive) then
     begin
-      if ((aux.SUIT_CARD = aux2.SUIT_CARD) and ((aux.VALUE - 1) =  aux2.VALUE) and (aux.VALUE > 0)) then
+      if ((LCardMove.SUIT_CARD = LCardReceive.SUIT_CARD) and ((LCardMove.VALUE - 1) =  LCardReceive.VALUE) and (LCardMove.VALUE > 0)) then
       begin
-        Result.Add(aux.IMAGE_CARD_LOCATION);
+        Result.Add(LCardMove.IMAGE_CARD_LOCATION);
 
-        if (aux2.VALUE = 0) then
-          Result.Add(GetImageAssemblyStack(aux2.STACK_TYPE))
+        if (LCardReceive.VALUE = 0) then
+          Result.Add(GetImageAssemblyStack(LCardReceive.STACK_TYPE))
         else
-          Result.Add(aux2.IMAGE_CARD_LOCATION);
+          Result.Add(LCardReceive.IMAGE_CARD_LOCATION);
 
         exit;
       end;
@@ -307,29 +299,24 @@ begin
   end;
 
   //discard for stack
-  aux:= GetStack(tstDiscard).CARD;
-
-  while Assigned(aux.NEXT_CARD) do
-    aux:= aux.NEXT_CARD;
+  LCardMove:= GetLastCardStack(tstDiscard);
 
   for J := Ord(tstStack1) to Ord(tstStack7) do
   begin
-    aux2:= GetStack(TStackType(J)).CARD;
-    while Assigned(aux2.NEXT_CARD) do
-      aux2:= aux2.NEXT_CARD;
+    LCardReceive:= GetLastCardStack(TStackType(J));
 
-    if Assigned(aux) and Assigned(aux2) then
+    if Assigned(LCardMove) and Assigned(LCardReceive) then
     begin
-      if ((aux.COLOR <> aux2.COLOR) and ((aux.VALUE + 1) =  aux2.VALUE) and (aux.VALUE <> 13) and (aux.VALUE > 0)) then
+      if ((LCardMove.COLOR <> LCardReceive.COLOR) and ((LCardMove.VALUE + 1) =  LCardReceive.VALUE) and (LCardMove.VALUE <> 13) and (LCardMove.VALUE > 0)) then
       begin
-        Result.Add(aux.IMAGE_CARD_LOCATION);
-        Result.Add(aux2.IMAGE_CARD_LOCATION);
+        Result.Add(LCardMove.IMAGE_CARD_LOCATION);
+        Result.Add(LCardReceive.IMAGE_CARD_LOCATION);
         exit;
       end
       else
-      if (aux.VALUE = 13) and (aux2.VALUE = 0) and (aux.PREVIOUS_CARD.VALUE > 0) then
+      if (LCardMove.VALUE = 13) and (LCardReceive.VALUE = 0) and (LCardMove.PREVIOUS_CARD.VALUE > 0) then
       begin
-        Result.Add(aux.IMAGE_CARD_LOCATION);
+        Result.Add(LCardMove.IMAGE_CARD_LOCATION);
         exit;
       end;
     end;
